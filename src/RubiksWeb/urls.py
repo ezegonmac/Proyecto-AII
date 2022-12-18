@@ -13,4 +13,5 @@ urlpatterns = [
     path('recommendedArtists/', views.recommendedArtists),
     path('admin/', admin.site.urls),
     path('styles/', views.styles),
+    path('home/', views.home),
 ]

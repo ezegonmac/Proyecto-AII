@@ -16,8 +16,16 @@
     --font-sans: 'Lato', sans-serif;
 }
 
+::selection {
+    background-color: var(--color-orange);
+    color: var(--color-white);
+}
+
 body {
     background-color: var(--color-gray);
+    color: var(--color-white);
+    /* Pushes content below fixed-top navbar */
+    padding-top: 5em;
 }
 
 p, h1, h2, h3, h4, h5, h6, a, li, span, div {
@@ -42,8 +50,6 @@ h3 {
     font-weight: bold;
 }
 
-.hero-text {
-    font-size: 2.2rem;
-    line-height: 2.6rem;
-    color: var(--color-lime);
+.container-content {
+    padding: 2rem;
 }

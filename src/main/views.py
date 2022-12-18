@@ -8,6 +8,9 @@ from main.populate import populate_database
 def index(request): 
     return render(request,'index.html')
 
+def home(request): 
+    return render(request,'home.html')
+
 def populateDB(request):
     populate_database() 
     return render(request, 'populate.html')

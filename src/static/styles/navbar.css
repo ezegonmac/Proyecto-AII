@@ -1,0 +1,68 @@
+.navbar-minimal {
+  padding-top: 1em;
+}
+
+.navbar-minimal .navbar-brand {
+    color: var(--color-white);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.navbar-minimal .navbar-brand:hover,
+.navbar-minimal .navbar-brand:focus {
+    color: var(--color-orange);
+    background-color: transparent;
+}
+
+.navbar-minimal .navbar-text {
+    color: var(--color-light-gray);
+}
+
+.navbar-minimal .nav-link {
+    color: white;
+    padding-inline: 1em;
+    padding-bottom: .5em;
+    padding-top: .5em;
+    text-transform: uppercase;
+}
+
+.navbar-minimal .nav-link:hover,
+.navbar-minimal .nav-link:focus {
+    color: var(--color-gray);
+    background-color: var(--color-cyan);
+}
+
+.navbar-minimal .nav-link.active,
+.navbar-minimal .nav-link.active:hover,
+.navbar-minimal .nav-link.active:focus {
+    color: var(--color-cyan);
+    background: transparent;
+}
+
+.nav-link.disabled,
+.nav-link.disabled:hover,
+.nav-link.disabled:focus {
+    color: var(--color-light-gray);
+    background-color: transparent;
+}
+
+.navbar-minimal .navbar-toggler {
+    border-color: transparent;
+}
+.navbar-minimal .navbar-toggler:hover,
+.navbar-minimal .navbar-toggler:focus {
+    color: var(--color-white);
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.navbar-toggler-icon {
+  background-color: transparent;
+  filter: invert(1);
+}
+
+.navbar-minimal .btn-link[disabled]:hover,
+fieldset[disabled] .navbar-minimal .btn-link:hover,
+.navbar-minimal .btn-link[disabled]:focus,
+fieldset[disabled] .navbar-minimal .btn-link:focus {
+  color: var(--color-light-gray);
+}
