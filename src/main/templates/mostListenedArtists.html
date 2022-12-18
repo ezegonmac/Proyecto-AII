@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Artistas m&aacute;s escuchados
+{% endblock %}
+
+{% block content %}
+
+<form method="get" action="">
+	{{form.as_p}}
+	<input type="Submit" value="Buscar"/>
+</form>
+
+{% for user_artist in user_artists %}
+	<p>{{ user_artist.artist.name }}</p>
+	<ul>
+		<li><b>Identificador: </b> {{ user_artist.artist.id }}</li>
+		<li><b>Tiempo de escucha: </b> {{ user_artist.listen_time }} segundos</li>
+	</ul>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Artistas recomendados
+{% endblock %}
+
+{% block content %}
+
+<form method="get" action="">
+	{{form.as_p}}
+	<input type="Submit" value="Buscar"/>
+</form>
+
+<ul>
+{% for artist, score in artists %}
+	<li><b>{{ artist }}:</b> {{ score | floatformat:"2" }}%</p></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Inicio
+{% endblock %}
+
+{% block content %}
+
+	<p>Se desea construir un sistema permita recomendar artistas musicales a usuarios en función de los gustos de éstos.</p>
+
+	<p>Almacenar la información siguiente:</p>
+
+	<ol type="a">
+		<li>Artista: IdArtista, Nombre, Url y PictureUrl.</li>
+		<li>Etiqueta: IdTag, TagValue.</li>
+		<li>UsuarioArtista: IdUsuario, IdArtista, TiempoEscucha.</li>
+		<li>UsuarioEtiquetaArtista:IdUsuario, IdArtista, IdTag, Día, Mes y Año.</li>
+	</ol>
+
+	<p>Extrayendo los datos del Last.FM Dataset: <a href="http://grouplens.org/datasets/hetrec-2011/">http://grouplens.org/datasets/hetrec-2011/.</a></p>
+
+	<p>Se pide un programa con un menú principal, que permita las siguientes opciones:</p>
+
+	<ol type="a">
+		<li>Dado un usuario (IdUsuario), muestre los artistas que ha escuchado (IdArtista y Nombre) y el tiempo que lo ha escuchado.</li>
+		<li>Dado un artista (IdArtista) muestre las diez etiquetas más frecuentes que los usuarios le han dado a cada artista.</li>
+		<li>Dado un usuario (IdUsuario), le recomiende dos artistas que no haya escuchado, usando un sistema de recomendación Basado en Contenido.</li>
+	</ol>
+
+	<p>Para el sistema de recomendación primero es necesario definir las preferencias del usuario y las características de los artistas:</p>
+
+	<ul>
+		<li>Para establecer las características de los artistas establecer las diez etiquetas más frecuentes que los usuarios le han dado a cada artista y almacenarlas.</li>
+		<li>Para determinar las preferencias de un usuario, tomar los cinco artistas que más tiempo ha escuchado, y obtener las diez etiquetas más frecuentes de esos artistas. Esas etiquetas definen el perfil del usuario.</li>
+		<li>Comparar el perfil del usuario con las características de los artistas y devolver los más parecidos (p.e. usando el coeficiente de Dice).</li>
+	</ul>
+
+{% endblock %}
