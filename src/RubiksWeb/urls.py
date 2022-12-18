@@ -12,4 +12,5 @@ urlpatterns = [
     path('mostFrequentTags/', views.mostFrequentTags),
     path('recommendedArtists/', views.recommendedArtists),
     path('admin/', admin.site.urls),
+    path('styles/', views.styles),
 ]

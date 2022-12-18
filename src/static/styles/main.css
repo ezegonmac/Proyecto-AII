@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap');
+@import 'reset.css';
+
+:root {
+    /* Color palette */
+    --color-white: #FAFAFA;
+    --color-black: #050505;
+    --color-gray: #1F1F1F;
+    --color-light-gray: #3E4346;
+    --color-lime: #9AF130;
+    --color-orange: #F2A128;
+    --color-magenta: #F1397D;
+    --color-cyan: #2BF1DB;
+
+    /* Fonts */
+    --font-sans: 'Lato', sans-serif;
+}
+
+body {
+    background-color: var(--color-gray);
+}
+
+p, h1, h2, h3, h4, h5, h6, a, li, span, div {
+    color: var(--color-white);
+    font-family: var(--font-sans);
+}
+
+h1 {
+    font-size: 6rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    line-height: 5.8rem;
+}
+
+h2 {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.hero-text {
+    font-size: 2.2rem;
+    line-height: 2.6rem;
+    color: var(--color-lime);
+}

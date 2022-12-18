@@ -48,3 +48,6 @@ def recommendedArtists(request):
     else:
         params = {'form': UserForm()}
     return render(request,'recommendedArtists.html', params)
+
+def styles(request): 
+    return render(request,'styles.html')
