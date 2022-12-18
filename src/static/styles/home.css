@@ -1,6 +1,41 @@
 
+.hero-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* height: 100%; */
+}
+
+.hero-left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 40%;
+    height: 100%;
+    padding: 2rem;
+}
+
+.hero-title {
+    margin-bottom: 1rem;
+}
+
 .hero-text {
-    font-size: 2.2rem;
-    line-height: 2.6rem;
+    width: 90%;
+    font-size: 1.5rem;
+    font-weight: 200;
     color: var(--color-lime);
+}
+
+.hero-right-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    width: 60%;
+    height: 100%;
+}
+
+.hero-img {
+    scale: 2;
+    translate: 200px 40px;
 }

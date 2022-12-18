@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap');
 @import 'reset.css';
 
 :root {
@@ -26,6 +26,7 @@ body {
     color: var(--color-white);
     /* Pushes content below fixed-top navbar */
     padding-top: 5em;
+    overflow: hidden;
 }
 
 p, h1, h2, h3, h4, h5, h6, a, li, span, div {
@@ -34,7 +35,7 @@ p, h1, h2, h3, h4, h5, h6, a, li, span, div {
 }
 
 h1 {
-    font-size: 6rem;
+    font-size: 5rem;
     font-weight: bold;
     text-transform: capitalize;
     line-height: 5.8rem;
@@ -48,6 +49,10 @@ h2 {
 h3 {
     font-size: 3rem;
     font-weight: bold;
+}
+
+p {
+    font-weight: 200;
 }
 
 .container-content {

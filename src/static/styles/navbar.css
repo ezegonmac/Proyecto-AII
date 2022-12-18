@@ -1,5 +1,6 @@
 .navbar-minimal {
   padding-top: 1em;
+  background-color: var(--color-gray);
 }
 
 .navbar-minimal .navbar-brand {

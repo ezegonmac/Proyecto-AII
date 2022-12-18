@@ -6,11 +6,21 @@
 {% endblock head %}
 
 {% block title %}
-Inicio
+Home - The Rubiks cube finder
 {% endblock title %}
 
 {% block content %}
 
-<h1>Home</h1>
+<section class="hero-section">
+	<div class="hero-left-section">
+		<h1 class="hero-title">The Rubiks cube finder</h1>
+		<p class="hero-text">The website you need to complete your collection once and for all.</p>
+	</div>
+
+	<div class="hero-right-section">
+		<img class="hero-img" src="{% static 'images/hero.png' %}" alt="hero">
+	</div>
+
+</section>
 
 {% endblock %}
