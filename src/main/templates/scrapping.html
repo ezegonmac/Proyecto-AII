@@ -21,7 +21,18 @@ Scrapping
                 <h4>{{item.name}}</h4>
                 <img src="{{item.image}}" alt="{{item.title}}">
             </a>
-            <h4>{{item.price}}</h4>
+            <h4>{{item.price}} €</h4>
+            <p><b>detail_image:</b> {{item.detail_image}}</p>
+            {% comment %} <img src="{{item.detail_image}}" alt="{{item.title}}"> {% endcomment %}
+            <p><b>short_name:</b> {{item.short_name}}</p>
+            <p><b>brand:</b> {{item.brand}}</p>
+            <p><b>colors:</b> {{item.colors}}</p>
+            <p><b>description:</b> {{item.description}}</p>
+            <p><b>type:</b> {{item.type}}</p>
+            <p><b>magnets:</b> {{item.magnets}}</p>
+            <p><b>weight:</b> {{item.weight}}</p>
+            <p><b>release_date:</b> {{item.release_date}}</p>
+
         </div>
 
         <hr>
