@@ -38,4 +38,9 @@
 .hero-img {
     scale: 2;
     translate: 200px 40px;
+    z-index: -1;
+    pointer-events: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
