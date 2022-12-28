@@ -4,7 +4,8 @@ from django.shortcuts import render, get_list_or_404
 from collections import Counter
 from main.recommendations import recommend_artists, load_similarities
 from main.populate import populate_database
-from main.scrapping import scrape
+from main.index import load_data
+from main.index import search_all_index
 
 def index(request): 
     return render(request, 'index.html')
@@ -12,10 +13,11 @@ def index(request):
 def home(request): 
     return render(request, 'home.html')
 
-def scrapping(request):
-    items = scrape()
+def scraping(request):
+    items = load_data()
+    items2 = search_all_index() # TODO: change to items2
     params = {'num_items': len(items), 'items': items}
-    return render(request, 'scrapping.html', params)
+    return render(request, 'scraping.html', params)
 
 def populateDB(request):
     populate_database() 

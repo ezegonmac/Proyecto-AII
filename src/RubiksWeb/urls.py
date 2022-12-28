@@ -14,5 +14,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('styles/', views.styles),
     path('home/', views.home),
-    path('scrapping/', views.scrapping),
+    path('scraping/', views.scraping),
 ]

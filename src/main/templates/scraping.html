@@ -6,18 +6,18 @@
 {% endblock head %}
 
 {% block title %}
-Scrapping
+Scraping
 {% endblock title %}
 
 {% block content %}
 
-    <h1>Scrapping</h1>
+    <h1>Scraping</h1>
 
 	<p>Loaded {{num_items}} items</p>
 
     {% for item in items %}
         <div class="item">
-            <a href="https://speedcubeshop.com/{{item.url}}">
+            <a href="{{item.url}}">
                 <h4>{{item.name}}</h4>
                 <img src="{{item.image}}" alt="{{item.title}}">
             </a>
@@ -26,10 +26,13 @@ Scrapping
             {% comment %} <img src="{{item.detail_image}}" alt="{{item.title}}"> {% endcomment %}
             <p><b>short_name:</b> {{item.short_name}}</p>
             <p><b>brand:</b> {{item.brand}}</p>
-            <p><b>colors:</b> {{item.colors}}</p>
+            <p><b>exterior_finishes:</b> {{item.exterior_finishes}}</p>
+            <p><b>plastic_colors:</b> {{item.plastic_colors}}</p>
+            <p><b>internal_plastic_colors:</b> {{item.internal_plastic_colors}}</p>
             <p><b>description:</b> {{item.description}}</p>
             <p><b>type:</b> {{item.type}}</p>
             <p><b>magnets:</b> {{item.magnets}}</p>
+            <p><b>size:</b> {{item.size}}</p>
             <p><b>weight:</b> {{item.weight}}</p>
             <p><b>release_date:</b> {{item.release_date}}</p>
 
