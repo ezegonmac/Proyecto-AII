@@ -4,12 +4,18 @@ from django.shortcuts import render, get_list_or_404
 from collections import Counter
 from main.recommendations import recommend_artists, load_similarities
 from main.populate import populate_database
+from main.scrapping import scrape
 
 def index(request): 
-    return render(request,'index.html')
+    return render(request, 'index.html')
 
 def home(request): 
-    return render(request,'home.html')
+    return render(request, 'home.html')
+
+def scrapping(request):
+    items = scrape()
+    params = {'num_items': len(items), 'items': items}
+    return render(request, 'scrapping.html', params)
 
 def populateDB(request):
     populate_database() 

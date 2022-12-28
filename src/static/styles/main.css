@@ -26,7 +26,6 @@ body {
     color: var(--color-white);
     /* Pushes content below fixed-top navbar */
     padding-top: 5em;
-    overflow: hidden;
 }
 
 p, h1, h2, h3, h4, h5, h6, a, li, span, div {
