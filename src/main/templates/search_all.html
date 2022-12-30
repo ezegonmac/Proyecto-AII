@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'styles/index.css' %}">
+{% endblock head %}
+
+{% block title %}
+Search all
+{% endblock title %}
+
+{% block content %}
+
+    <h1>Search all</h1>
+
+	<p>Loaded {{num_items}} items</p>
+
+    {% for item in items %}
+        <div class="item">
+            <a href="{{item.url}}">
+                <h4>{{item.name}}</h4>
+                <img src="{{item.image}}" alt="{{item.title}}">
+            </a>
+            <h4>{{item.price}} €</h4>
+            <p><b>detail_image:</b> {{item.detail_image}}</p>
+            {% comment %} <img src="{{item.detail_image}}" alt="{{item.title}}"> {% endcomment %}
+            <p><b>short_name:</b> {{item.short_name}}</p>
+            <p><b>brand:</b> {{item.brand}}</p>
+            <p><b>exterior_finishes:</b> {{item.exterior_finishes}}</p>
+            <p><b>plastic_colors:</b> {{item.plastic_colors}}</p>
+            <p><b>internal_plastic_colors:</b> {{item.internal_plastic_colors}}</p>
+            <p><b>description:</b> {{item.description}}</p>
+            <p><b>type:</b> {{item.type}}</p>
+            <p><b>magnets:</b> {{item.magnets}}</p>
+            <p><b>size:</b> {{item.size}}</p>
+            <p><b>weight:</b> {{item.weight}}</p>
+            <p><b>release_date:</b> {{item.release_date}}</p>
+
+        </div>
+
+        <hr>
+    {% endfor %}
+
+{% endblock %}

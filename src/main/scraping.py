@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import urllib.request
-import os, ssl
+import ssl, os
+import re
 from datetime import datetime
 
 # avoid SSL error
@@ -10,7 +11,7 @@ getattr(ssl, '_create_unverified_context', None)):
 
 
 def scrape():
-    items = get_items(1)
+    items = get_items(10)
     return items
 
 
@@ -25,11 +26,20 @@ def get_items(num_pages):
         items_collection_div = s1.find("div", class_="product-collection")
         items_divs = items_collection_div.find_all("div", class_="inner product-item")
         for item_div in items_divs:
-            item = parse_item(item_div)
+            try:
+                item = parse_item(item_div)
+            except Exception as e:
+                print(f"Error parsing item {item_div.text}")
+                raise e
 
             ctx2 = urllib.request.urlopen(item["url"])
             s2 = BeautifulSoup(ctx2, "lxml")
-            item_details = parse_item_details(s2)
+            
+            try:
+                item_details = parse_item_details(s2)
+            except Exception as e:
+                print(f"Error parsing item details for {item['name']}")
+                raise e
 
             item = {**item, **item_details}
             items.append(item)
@@ -82,7 +92,12 @@ def parse_item_details(s2):
         else :
             print("Unknown variant: " + label)
 
-    item_description = product_bottom_div.find("div", class_="rte").find("p").text
+    rte_div = product_bottom_div.find("div", class_="rte")
+    item_description = rte_div.find("p")
+    if not item_description:
+        item_description = rte_div.text
+    else :
+        item_description = item_description.text.strip()
 
     # details
     item_details_div = product_bottom_div.find("div", class_="tab-content", id="collapse-tab3")
@@ -101,7 +116,10 @@ def parse_item_details(s2):
             item_magnets = value.text.strip()
         elif label.text.strip() == "Size":
             value = value.text.replace("mm", "").strip()
-            item_size = int(value) if value else None
+            if re.search(r'\d+\.\d+', value):
+                item_size = float(value) if value else None
+            else:
+                item_size = None
         elif label.text.strip() == "Weight":
             value = value.text.replace("g", "").strip()
             item_weight = int(value) if value else None

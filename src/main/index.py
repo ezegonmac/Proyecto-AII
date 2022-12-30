@@ -11,10 +11,7 @@ def search_all_index():
     index = open_dir("Index")
     searcher = index.searcher()
     query = QueryParser("name", index.schema).parse("*")
-    results = searcher.search(query).items()
-    
-    for result in results:
-        print(result)
+    results = searcher.search(query, limit=None)
     
     return results
 
@@ -35,14 +32,14 @@ def create_database():
         url=ID(stored=True),
         image=ID(stored=True),
         detail_image=ID(stored=True),
-        description=TEXT(stored=False),
+        description=TEXT(stored=True),
         brand=KEYWORD(stored=True, commas=True),
         type=KEYWORD(stored=True, commas=True),
         exterior_finishes=KEYWORD(stored=True, commas=True),
         plastic_colors=KEYWORD(stored=True, commas=True),
         internal_plastic_colors=KEYWORD(stored=True, commas=True),
         magnets=KEYWORD(stored=True, commas=True),
-        size=NUMERIC(stored=True, numtype=int),
+        size=NUMERIC(stored=True, numtype=float),
         weight=NUMERIC(stored=True, numtype=int),
         release_date=DATETIME(stored=True)
         )

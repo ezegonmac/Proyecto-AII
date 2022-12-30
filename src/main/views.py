@@ -15,9 +15,13 @@ def home(request):
 
 def scraping(request):
     items = load_data()
-    items2 = search_all_index() # TODO: change to items2
     params = {'num_items': len(items), 'items': items}
     return render(request, 'scraping.html', params)
+
+def search_all(request):
+    items = search_all_index()
+    params = {'num_items': len(items), 'items': items}
+    return render(request, 'search_all.html', params)
 
 def populateDB(request):
     populate_database() 
