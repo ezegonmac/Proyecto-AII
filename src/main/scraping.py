@@ -11,7 +11,8 @@ getattr(ssl, '_create_unverified_context', None)):
 
 
 def scrape():
-    items = get_items(10)
+    # max 15 pages
+    items = get_items(14)
     return items
 
 
