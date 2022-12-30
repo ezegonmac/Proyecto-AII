@@ -16,4 +16,5 @@ urlpatterns = [
     path('home/', views.home),
     path('scraping/', views.scraping),
     path('search_all/', views.search_all),
+    path('catalog/', views.catalog),
 ]

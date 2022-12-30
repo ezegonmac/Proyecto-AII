@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'styles/catalog.css' %}">
+{% endblock head %}
+
+{% block title %}
+Catalog
+{% endblock title %}
+
+{% block content %}
+
+    <h1>Catalog</h1>
+
+	<p>Loaded {{num_items}} items</p>
+
+    <hr>
+
+    <div class="catalog-grid">
+        {% for item in items %}
+            {% include "components/product_card.html" with item=item %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

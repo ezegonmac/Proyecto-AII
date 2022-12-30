@@ -23,6 +23,11 @@ def search_all(request):
     params = {'num_items': len(items), 'items': items}
     return render(request, 'search_all.html', params)
 
+def catalog(request):
+    items = search_all_index()
+    params = {'num_items': len(items), 'items': items}
+    return render(request, 'catalog.html', params)
+
 def populateDB(request):
     populate_database() 
     return render(request, 'populate.html')

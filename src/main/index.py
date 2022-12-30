@@ -26,7 +26,7 @@ def load_data():
 
 def create_database():
     schema = Schema(
-        name=TEXT(stored=False, phrase=False),
+        name=TEXT(stored=True, phrase=False),
         short_name=TEXT(stored=True, phrase=False),
         price=NUMERIC(stored=True, numtype=float),
         url=ID(stored=True),
