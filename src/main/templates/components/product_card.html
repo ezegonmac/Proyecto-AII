@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="product-card">
-    <a class="product-img" href="{{item.url}}">
+    <a class="product-img" href="{% url 'product' item.id %}">
         <img src="{{item.image}}" alt="{{item.name}}"/>
     </a>
     <div class="product-info">

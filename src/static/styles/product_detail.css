@@ -162,9 +162,11 @@
 .details-section td:nth-child(2) {
     color: var(--color-cyan);
     font-weight: 400;
+    opacity: 0.8;
 }
 
 .variants-section td:nth-child(2) {
     color: var(--color-lime);
     font-weight: 400;
+    opacity: 0.8;
 }
