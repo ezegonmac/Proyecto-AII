@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="product-card">
     <a class="product-img" href="{{item.url}}">
         <img src="{{item.image}}" alt="{{item.name}}"/>
@@ -5,7 +7,9 @@
     <div class="product-info">
         <span class="product-info-top">
             <a class="product-name" href="{{item.url}}">{{item.name}}</a>
-            <span class="product-like"></span>
+            <button class="product-like">
+                <img src="{% static 'icons/like-50.png' %}" alt="like">
+            </button>
         </span>
         <p class="product-price">{{item.price}} €</p>
     </div>

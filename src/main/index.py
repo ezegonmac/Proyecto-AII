@@ -40,7 +40,7 @@ def create_database():
         internal_plastic_colors=KEYWORD(stored=True, commas=True),
         magnets=KEYWORD(stored=True, commas=True),
         size=NUMERIC(stored=True, numtype=float),
-        weight=NUMERIC(stored=True, numtype=int),
+        weight=NUMERIC(stored=True, numtype=float),
         release_date=DATETIME(stored=True)
         )
     

@@ -11,8 +11,9 @@ getattr(ssl, '_create_unverified_context', None)):
 
 
 def scrape():
-    # max 15 pages
-    items = get_items(14)
+    # max 15 WCA pages
+    # max 48 ALL pages
+    items = get_items(3)
     return items
 
 
@@ -20,7 +21,8 @@ def get_items(num_pages):
     items = []
 
     for page in range(0, num_pages):
-        url = f'https://speedcubeshop.com/collections/cubes-puzzles-wca?page={page}'
+        print(f'page {page}/{num_pages}')
+        url = f'https://speedcubeshop.com/collections/all-puzzles?page={page}'
         ctx1 = urllib.request.urlopen(url)
         s1 = BeautifulSoup(ctx1, "lxml")
 
@@ -31,7 +33,8 @@ def get_items(num_pages):
                 item = parse_item(item_div)
             except Exception as e:
                 print(f"Error parsing item {item_div.text}")
-                raise e
+                print(e)
+                continue
 
             ctx2 = urllib.request.urlopen(item["url"])
             s2 = BeautifulSoup(ctx2, "lxml")
@@ -40,7 +43,8 @@ def get_items(num_pages):
                 item_details = parse_item_details(s2)
             except Exception as e:
                 print(f"Error parsing item details for {item['name']}")
-                raise e
+                print(e)
+                continue
 
             item = {**item, **item_details}
             items.append(item)
@@ -123,7 +127,7 @@ def parse_item_details(s2):
                 item_size = None
         elif label.text.strip() == "Weight":
             value = value.text.replace("g", "").strip()
-            item_weight = int(value) if value else None
+            item_weight = float(value) if value else None
         elif label.text.strip() == "Released":
             value = value.text.strip()
             item_release_date = datetime.strptime(value, '%Y-%m-%d') if value else None  
