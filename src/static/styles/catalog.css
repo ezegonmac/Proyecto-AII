@@ -43,6 +43,7 @@
 
 .product-name {
     text-decoration: none;
+    width: calc(100% - 1.5rem);
 }
 
 .product-name:hover {
@@ -52,7 +53,7 @@
 .product-like {
     display: grid;
     place-items: center;
-    width: 2.5rem;
+    width: 1.5rem;
     aspect-ratio: 1/1;
     background-color: transparent;
     border: none;

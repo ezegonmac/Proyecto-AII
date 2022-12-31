@@ -13,7 +13,7 @@ getattr(ssl, '_create_unverified_context', None)):
 def scrape():
     # max 15 WCA pages
     # max 48 ALL pages
-    items = get_items(3)
+    items = get_items(47)
     return items
 
 
@@ -121,7 +121,7 @@ def parse_item_details(s2):
             item_magnets = value.text.strip()
         elif label.text.strip() == "Size":
             value = value.text.replace("mm", "").strip()
-            if re.search(r'\d+\.\d+', value):
+            if re.search(r'\d+?\.?\d+', value):
                 item_size = float(value) if value else None
             else:
                 item_size = None
@@ -130,7 +130,7 @@ def parse_item_details(s2):
             item_weight = float(value) if value else None
         elif label.text.strip() == "Released":
             value = value.text.strip()
-            item_release_date = datetime.strptime(value, '%Y-%m-%d') if value else None  
+            item_release_date = datetime.strptime(value, '%Y-%m-%d') if value else None 
         else:
             print("Unknown detail: " + label.text + " - " + item_short_name)
 
