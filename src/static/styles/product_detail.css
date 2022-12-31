@@ -1,0 +1,170 @@
+.product-top {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+}
+
+.product-img {
+    width: 30%;
+    aspect-ratio: 12/8;
+    margin-block: 3%;
+    margin-inline: 4rem;
+    display: grid;
+    place-items: center;
+    background-color: white;
+}
+
+.product-img > img{
+    width: 80%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.product-info {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.6rem;
+    border-bottom: 3px solid var(--color-light-gray);
+}
+
+.product-info-top {
+    display: flex;
+    align-items: start;
+    margin-bottom: 1em;
+    flex-wrap: wrap;
+}
+
+.product-name {
+    width: 90%;
+    text-decoration: none;
+    font-size: 2.5rem;
+    margin-bottom: 0.4em;
+}
+
+.product-name:hover {
+    color: var(--color-lime);
+}
+
+.product-like {
+    width: 5%;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1/1;
+    background-color: transparent;
+    border: none;
+    margin: auto;
+}
+
+.product-like > img {
+    width: 100%;
+    cursor: pointer;
+    scale: 2;
+}
+
+.product-primary-variant {
+    width: 100%;
+    color: var(--color-lighter-gray);
+    font-size: 1.3rem;
+}
+
+.product-info-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.product-price {
+    font-size: 3.5rem;
+    color: var(--color-orange);
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.product-brand {
+    color: var(--color-lighter-gray);
+    font-size: 1.3rem;
+}
+
+.product-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+}
+
+.product-bottom > div {
+    margin-bottom: 3rem;
+}
+
+.description-section {
+    width: 100%;
+}
+
+.description-section p {
+    font-size: 1.3rem;
+    color: var(--color-lighter-gray);
+    text-align: justify;
+    font-weight: 200;
+}
+
+.link-section a {
+    display: flex;
+    text-decoration: none;
+}
+
+.link-section a > p {
+    font-weight: bold;
+}
+
+.link-section a > img {
+    width: 1em;
+    height: 1em;
+    margin-block: auto;
+    margin-left: 1rem;
+}
+
+.extra-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    gap: 4rem;
+}
+
+.extra-section > div {
+    width: 50%;
+}
+
+.details-section h4, .variants-section h4 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.details-section table, .variants-section table {
+    width: 100%;
+    border-spacing: 0 0.2rem;
+    border-collapse: separate;
+    font-weight: 200;
+}
+
+.details-section tr, .variants-section tr {
+    font-size: 1.3rem;
+    color: var(--color-lighter-gray);
+    width: 50%;
+}
+
+.details-section td:nth-child(2) {
+    color: var(--color-cyan);
+    font-weight: 400;
+}
+
+.variants-section td:nth-child(2) {
+    color: var(--color-lime);
+    font-weight: 400;
+}

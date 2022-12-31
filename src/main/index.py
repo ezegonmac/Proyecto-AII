@@ -7,12 +7,22 @@ from whoosh.fields import Schema, TEXT, NUMERIC, KEYWORD, ID, DATETIME
 from whoosh.qparser import QueryParser
 from main.scraping import scrape
 
+
+def search_by_id_index(id):
+    index = open_dir("Index")
+    searcher = index.searcher()
+    query = QueryParser("id", index.schema).parse(str(id))
+    results = searcher.search(query, limit=None)
+
+    return results[0]
+
+
 def search_all_index():
     index = open_dir("Index")
     searcher = index.searcher()
     query = QueryParser("name", index.schema).parse("*")
     results = searcher.search(query, limit=None)
-    
+
     return results
 
 
@@ -26,6 +36,7 @@ def load_data():
 
 def create_database():
     schema = Schema(
+        id=NUMERIC(stored=True, unique=True, numtype=int),
         name=TEXT(stored=True, phrase=False),
         short_name=TEXT(stored=True, phrase=False),
         price=NUMERIC(stored=True, numtype=float),
@@ -43,23 +54,26 @@ def create_database():
         weight=NUMERIC(stored=True, numtype=float),
         release_date=DATETIME(stored=True)
         )
-    
+
     # remove old index
     if os.path.exists("Index"):
         shutil.rmtree("Index")
     os.mkdir("Index")
-    
+
     index = create_in("Index", schema=schema)
-    
+
     return index
 
 
 def load_database(index, items):
     writer = index.writer()
-    
-    for item in items:
-        
+
+    for i in range(len(items)):
+
+        item = items[i]
+
         writer.add_document(
+            id=i,
             name=item['name'],
             short_name=item['short_name'],
             price=item['price'],

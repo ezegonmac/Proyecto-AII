@@ -5,7 +5,7 @@ from collections import Counter
 from main.recommendations import recommend_artists, load_similarities
 from main.populate import populate_database
 from main.index import load_data
-from main.index import search_all_index
+from main.index import search_all_index, search_by_id_index
 
 def index(request): 
     return render(request, 'index.html')
@@ -27,6 +27,11 @@ def catalog(request):
     items = search_all_index()
     params = {'num_items': len(items), 'items': items}
     return render(request, 'catalog.html', params)
+
+def product_detail(request, id):
+    item = search_by_id_index(id)
+    params = {'item': item}
+    return render(request, 'product_detail.html', params)
 
 def populateDB(request):
     populate_database() 

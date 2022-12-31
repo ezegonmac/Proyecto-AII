@@ -13,8 +13,9 @@ urlpatterns = [
     path('recommendedArtists/', views.recommendedArtists),
     path('admin/', admin.site.urls),
     path('styles/', views.styles),
-    path('home/', views.home),
-    path('scraping/', views.scraping),
-    path('search_all/', views.search_all),
-    path('catalog/', views.catalog),
+    path('home/', views.home, name='home'),
+    path('scraping/', views.scraping, name='scraping'),
+    path('search_all/', views.search_all, name='search_all'),
+    path('catalog/', views.catalog, name='catalog'),
+    path('product/<int:id>', views.product_detail, name='product'),
 ]

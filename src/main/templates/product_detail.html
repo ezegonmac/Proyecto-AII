@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'styles/product_detail.css' %}">
+{% endblock head %}
+
+{% block title %}
+    {{item.name}}
+{% endblock title %}
+
+{% block content %}
+
+<div class="product-top">
+
+    <div class="product-img">
+        <img src="{{item.detail_image}}" alt="">
+    </div>
+
+    <div class="product-info">
+
+        <div class="product-info-top">
+            <a class="product-name" href="{{item.url}}">{{item.short_name}}</a>
+            <button class="product-like">
+                <img src="{% static 'icons/like-50.png' %}" alt="like">
+            </button>
+            <p class="product-primary-variant">Colors: {{item.plastic_colors|join:", "}}</p>
+        </div>
+
+        <div class="product-info-bottom">
+            <p class="product-price">{{item.price}} €</p>
+            <p class="product-brand">{{item.brand}}</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="product-bottom">
+
+    <div class="link-section">
+        <a href="{{item.url}}">
+            <p>Shop link (speedcubeshop.com)</p>
+            <img src="{% static 'icons/external-50.png' %}" alt="Redirect to shop page"/>
+        </a>
+    </div>
+
+    <div class="description-section">
+        <p>{{item.description}}</p>
+    </div>
+
+    <div class="extra-section">
+        <div class="details-section">
+            <h4>Details</h4>
+            <table>
+                <tr>
+                    <td>Type</td>
+                    <td>{{item.type}}</td>
+                </tr>
+                <tr>
+                    <td>Magnets</td>
+                    <td>{{item.magnets}}</td>
+                </tr>
+                <tr>
+                    <td>Size</td>
+                    <td>{{item.size}} mm</td>
+                </tr>
+                <tr>
+                    <td>Weight</td>
+                    <td>{{item.weight}} g</td>
+                </tr>
+                <tr>
+                    <td>Release Date</td>
+                    <td>{{item.release_date}}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="variants-section">
+            <h4>Variants</h4>
+            <table>
+                <tr>
+                    <td>Plastic Color</td>
+                    <td>{{item.plastic_colors|join:", "}}</td>
+                </tr>
+                <tr>
+                    <td>Exterior Finish</td>
+                    <td>{{item.exterior_finishes|join:", "}}</td>
+                </tr>
+                <tr>
+                    <td>Internal Color</td>
+                    <td>{{item.internal_plastic_colors|join:", "}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+    
+{% endblock %}

@@ -5,12 +5,12 @@
         <img src="{{item.image}}" alt="{{item.name}}"/>
     </a>
     <div class="product-info">
-        <span class="product-info-top">
-            <a class="product-name" href="{{item.url}}">{{item.name}}</a>
+        <div class="product-info-top">
+            <a class="product-name" href="{% url 'product' item.id %}">{{item.name}}</a>
             <button class="product-like">
                 <img src="{% static 'icons/like-50.png' %}" alt="like">
             </button>
-        </span>
+        </div>
         <p class="product-price">{{item.price}} €</p>
     </div>
 </div>

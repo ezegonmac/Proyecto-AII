@@ -7,6 +7,7 @@
     --color-black: #050505;
     --color-gray: #1F1F1F;
     --color-light-gray: #3E4346;
+    --color-lighter-gray: #798186;
     --color-lime: #9AF130;
     --color-orange: #F2A128;
     --color-magenta: #F1397D;
@@ -26,6 +27,7 @@ body {
     color: var(--color-white);
     /* Pushes content below fixed-top navbar */
     padding-top: 5em;
+    overflow-x: hidden;
 }
 
 p, h1, h2, h3, h4, h5, h6, a, li, span, div {
