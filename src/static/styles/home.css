@@ -11,6 +11,24 @@
     width: 40%;
     height: 100%;
     padding: 2rem;
+    position: relative;
+}
+
+/* image backbround */
+.hero-left-section::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: url("../images/hero-blobs.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    opacity: 0.2;
+    overflow: visible;
 }
 
 .hero-title {
@@ -64,7 +82,7 @@
 .hero-img {
     scale: 2;
     translate: 200px 40px;
-    z-index: -1;
+    z-index: -2;
     pointer-events: none;
     -moz-user-select: none;
     -webkit-user-select: none;
