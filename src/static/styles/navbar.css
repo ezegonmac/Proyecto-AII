@@ -6,12 +6,19 @@
 .navbar-minimal .navbar-brand {
     color: var(--color-white);
     font-family: 'Open Sans', sans-serif;
+    display: flex;
 }
 
-.navbar-minimal .navbar-brand:hover,
-.navbar-minimal .navbar-brand:focus {
+.navbar-minimal .navbar-brand:hover *,
+.navbar-minimal .navbar-brand:focus *{
     color: var(--color-orange);
     background-color: transparent;
+}
+
+.navbar-logo {
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: .5em;
 }
 
 .navbar-minimal .navbar-text {
