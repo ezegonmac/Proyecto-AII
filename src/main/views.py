@@ -6,37 +6,49 @@ from main.recommendations import recommend_artists, load_similarities
 from main.populate import populate_database
 from main.index import load_data
 from main.index import search_all_index, search_by_id_index
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
-def index(request): 
+
+def index(request):
     return render(request, 'index.html')
+
 
 def home(request): 
     return render(request, 'home.html')
 
+
+@permission_required('is_superuser')
 def scraping(request):
     items = load_data()
     params = {'num_items': len(items), 'items': items}
     return render(request, 'scraping.html', params)
 
+
+@permission_required('is_superuser')
 def search_all(request):
     items = search_all_index()
     params = {'num_items': len(items), 'items': items}
     return render(request, 'search_all.html', params)
 
+
+@login_required
 def catalog(request):
     items = search_all_index()
     params = {'num_items': len(items), 'items': items}
     return render(request, 'catalog.html', params)
 
+
+@login_required
 def product_detail(request, id):
     item = search_by_id_index(id)
     params = {'item': item}
     return render(request, 'product_detail.html', params)
 
+
 @login_required
 def profile(request):
     return render(request, 'profile.html')
+
 
 def populateDB(request):
     populate_database() 
