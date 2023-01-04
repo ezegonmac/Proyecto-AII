@@ -30,7 +30,20 @@
                     <li><a class="dropdown-item" href="{% url 'scraping' %}">Scrape</a></li>
                     <li><a class="dropdown-item" href="{% url 'search_all' %}">List all</a></li>
                 </ul>
-            </li> 
+            </li>
+
+            {% if user.is_authenticated %}
+                <li class="nav-item ms-auto nav-user-item">
+                    <a class="nav-link" href="{% url 'profile' %}">{{ user.get_username }}</a>
+                </li>
+            {% else %}
+                <li class="nav-item ms-auto nav-user-item">
+                    <a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">
+                        Login
+                    <img src="{% static 'icons/login-50.png' %}" alt="login">
+                    </a>
+                </li>
+            {% endif %}
           </ul>
 
     </div>

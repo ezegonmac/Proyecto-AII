@@ -3,6 +3,7 @@
 from django.urls import path
 from django.contrib import admin
 from main import views
+from django.urls import include
 
 urlpatterns = [
     path('', views.index),
@@ -18,4 +19,6 @@ urlpatterns = [
     path('search_all/', views.search_all, name='search_all'),
     path('catalog/', views.catalog, name='catalog'),
     path('product/<int:id>', views.product_detail, name='product'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('profile/', views.profile, name='profile'),
 ]

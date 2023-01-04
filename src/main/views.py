@@ -6,6 +6,7 @@ from main.recommendations import recommend_artists, load_similarities
 from main.populate import populate_database
 from main.index import load_data
 from main.index import search_all_index, search_by_id_index
+from django.contrib.auth.decorators import login_required
 
 def index(request): 
     return render(request, 'index.html')
@@ -32,6 +33,10 @@ def product_detail(request, id):
     item = search_by_id_index(id)
     params = {'item': item}
     return render(request, 'product_detail.html', params)
+
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
 
 def populateDB(request):
     populate_database() 
