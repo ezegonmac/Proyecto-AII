@@ -4,8 +4,35 @@ import re, os, shutil
 from datetime import datetime
 from whoosh.index import create_in, open_dir
 from whoosh.fields import Schema, TEXT, NUMERIC, KEYWORD, ID, DATETIME
-from whoosh.qparser import QueryParser
+from whoosh.qparser import QueryParser, MultifieldParser
 from main.scraping import scrape
+from django.core.paginator import Paginator
+
+
+def search_items_index(brand, type, search, request, page_size=20):
+
+    if brand == 'Any':
+        brand = '*'
+    if type == 'Any':
+        type = '*'
+    if search == '':
+        search = '*'
+
+    index = open_dir("Index")
+    searcher = index.searcher()
+    parser = MultifieldParser(["brand", "type"], schema=index.schema)
+    query = parser.parse(f'{brand} {type} {search}')
+    items = searcher.search(query, limit=None)
+    print(items)
+
+    paginator = Paginator(items, page_size)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    page_items = page.object_list
+
+    num_items = len(items)
+
+    return [page_items, page, num_items]
 
 
 def search_by_id_index(id):

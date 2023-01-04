@@ -75,3 +75,33 @@
     font-weight: bold;
     opacity: 0.8;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.pagination .pag-item {
+
+}
+
+.pagination .pag-item-link {
+    text-decoration: none;
+    color: var(--color-white);
+}
+
+.pagination .pag-item-link:hover {
+    color: var(--color-lime);
+}
+
+.pagination .pag-item-link.active {
+    color: var(--color-lime);
+}
+
+.pagination .pag-item-link img {
+    width: 1.5rem;
+    aspect-ratio: 1/1;
+}

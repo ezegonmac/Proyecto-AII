@@ -1,5 +1,5 @@
 // select the navbar element
-const navbar = document.querySelector('nav');
+const navbar = document.querySelector('nav.navbar');
 
 // get the height of the navbar
 const navbarHeight = navbar.offsetHeight * 2;
