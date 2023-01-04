@@ -7,9 +7,18 @@
     <div class="product-info">
         <div class="product-info-top">
             <a class="product-name" href="{% url 'product' item.id %}">{{item.name}}</a>
-            <button class="product-like">
-                <img src="{% static 'icons/like-50.png' %}" alt="like">
-            </button>
+            <form method="post" action="{% url 'catalog' %}">
+                {% csrf_token %}
+                <button type="submit" class="product-like" name="like">
+                    {% if item.id in likes %}
+                    <img src="{% static 'icons/like-50-red.png' %}" alt="liked">
+                    {% else %}
+                    <img src="{% static 'icons/like-50.png' %}" alt="not liked">
+                    {% endif %}
+                </button>
+                <input type="hidden" name="product_id" value="{{item.id}}">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+            </form>
         </div>
         <p class="product-price">{{item.price}} €</p>
     </div>

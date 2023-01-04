@@ -1,4 +1,4 @@
-from main.models import UserArtist, UserTagArtist
+from main.models import UserArtist, UserTagArtist, Like
 from main.forms import UserForm, ArtistForm
 from django.shortcuts import render, get_list_or_404
 from collections import Counter
@@ -7,6 +7,10 @@ from main.populate import populate_database
 from main.index import load_data
 from main.index import search_all_index, search_by_id_index
 from django.contrib.auth.decorators import login_required, permission_required
+from django.views.decorators.http import require_http_methods
+from django.http import HttpResponse
+from django.http import JsonResponse
+from main.utils import like
 
 
 def index(request):
@@ -33,8 +37,15 @@ def search_all(request):
 
 @login_required
 def catalog(request):
+
+    print(request.POST)
+    if request.method == 'POST' and 'like' in request.POST:
+        like(request)
+
     items = search_all_index()
-    params = {'num_items': len(items), 'items': items}
+    likes = Like.get_user_liked_items(request.user)
+    params = {'num_items': len(items), 'items': items, 'likes': likes}
+
     return render(request, 'catalog.html', params)
 
 
@@ -51,7 +62,7 @@ def profile(request):
 
 
 def populateDB(request):
-    populate_database() 
+    populate_database()
     return render(request, 'populate.html')
 
 def loadRS(request):

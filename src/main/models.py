@@ -1,5 +1,19 @@
 from django.db import models
 from django.core.validators import URLValidator
+from django.contrib.auth.models import User
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.IntegerField()
+
+    def __str__(self):
+        return str(self.user) + ': ' + str(self.item)
+
+    def get_user_liked_items(user):
+        likes = Like.objects.filter(user=user)
+        return [like.item for like in likes]
+
 
 class Tag(models.Model):
     value = models.CharField(max_length=20)

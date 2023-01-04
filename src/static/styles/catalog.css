@@ -59,6 +59,10 @@
     border: none;
 }
 
+.product-like:hover {
+    scale: 1.05;
+}
+
 .product-like > img {
     width: 100%;
     cursor: pointer;
