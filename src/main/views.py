@@ -38,7 +38,6 @@ def search_all(request):
 @login_required
 def catalog(request):
 
-    print(request.POST)
     if request.method == 'POST' and 'like' in request.POST:
         like(request)
 
@@ -51,8 +50,14 @@ def catalog(request):
 
 @login_required
 def product_detail(request, id):
+
+    if request.method == 'POST' and 'like' in request.POST:
+        like(request)
+
     item = search_by_id_index(id)
-    params = {'item': item}
+    liked = Like.is_liked(request.user, id)
+    params = {'item': item, 'liked': liked}
+    print(params)
     return render(request, 'product_detail.html', params)
 
 

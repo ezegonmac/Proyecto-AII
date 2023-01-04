@@ -64,14 +64,21 @@
     color: var(--color-lime);
 }
 
-.product-like {
+.product-info-top form {
     width: 5%;
+    aspect-ratio: 1/1;
+    margin: auto;
+}
+
+.product-like {
     display: grid;
     place-items: center;
-    aspect-ratio: 1/1;
     background-color: transparent;
     border: none;
-    margin: auto;
+}
+
+.product-like:hover {
+    scale: 1.05;
 }
 
 .product-like > img {

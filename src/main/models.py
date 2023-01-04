@@ -13,6 +13,9 @@ class Like(models.Model):
     def get_user_liked_items(user):
         likes = Like.objects.filter(user=user)
         return [like.item for like in likes]
+    
+    def is_liked(user, item):
+        return Like.objects.filter(user=user, item=item).exists()
 
 
 class Tag(models.Model):
