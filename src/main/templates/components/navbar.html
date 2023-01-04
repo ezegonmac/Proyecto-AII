@@ -16,25 +16,35 @@
     <div class="collapse navbar-collapse"  id="navbarNavDropdown">
 
         <ul class="navbar-nav ms-auto">
+
+            {% if user.is_authenticated %}
             <li class="nav-item ms-auto">
-              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                <a class="nav-link {% if request.path == '/home/' %}active{% endif %}" aria-current="page" href="{% url 'home' %}">
+                    Home
+                </a>
             </li>
             <li class="nav-item ms-auto">
-              <a class="nav-link" href="{% url 'catalog' %}">Catalog</a>
+                <a class="nav-link {% if request.path == '/catalog/' %}active{% endif %}" href="{% url 'catalog' %}">
+                    Catalog
+                </a>
             </li>
+            {% endif %}
+
+            {% if user.is_superuser %}
             <li class="nav-item dropdown ms-auto">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Actions
+                    Admin
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'scraping' %}">Scrape</a></li>
-                    <li><a class="dropdown-item" href="{% url 'search_all' %}">List all</a></li>
+                    <li><a class="dropdown-item {% if request.path == '/scraping/' %}active{% endif %}" href="{% url 'scraping' %}">Scrape</a></li>
+                    <li><a class="dropdown-item {% if request.path == '/search_all/' %}active{% endif %}" href="{% url 'search_all' %}">List all</a></li>
                 </ul>
             </li>
+            {% endif %}
 
             {% if user.is_authenticated %}
                 <li class="nav-item ms-auto nav-user-item">
-                    <a class="nav-link" href="{% url 'profile' %}">{{ user.get_username }}</a>
+                    <a class="nav-link {% if request.path == '/profile/' %}active{% endif %}" href="{% url 'profile' %}">{{ user.get_username }}</a>
                 </li>
             {% else %}
                 <li class="nav-item ms-auto nav-user-item">

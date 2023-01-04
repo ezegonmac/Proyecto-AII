@@ -2,7 +2,7 @@
     display: flex;
     align-items: stretch;
     justify-content: space-between;
-    margin-bottom: 3rem;
+    margin-bottom: 8rem;
 }
 
 .product-img {
@@ -13,6 +13,22 @@
     display: grid;
     place-items: center;
     background-color: white;
+}
+
+.product-img::before {
+    content: "";
+    position: absolute;
+    top: 0%;
+    right: 20%;
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/hero-blobs.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    opacity: 0.2;
+    overflow: visible;
 }
 
 .product-img > img{
@@ -97,7 +113,7 @@
 }
 
 .product-bottom > div {
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
 }
 
 .description-section {

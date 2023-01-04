@@ -1,4 +1,4 @@
-#encoding:utf-8
+# encoding:utf-8
 
 from django.urls import path
 from django.contrib import admin
