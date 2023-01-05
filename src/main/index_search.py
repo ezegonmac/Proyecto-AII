@@ -34,7 +34,7 @@ def search_items_index(brand, type, search, request, page_size=20):
 def search_by_id_index(id):
     ix = index.open_dir(INDEX_FOLDER, indexname=INDEX_ITEMS)
     searcher = ix.searcher()
-    query = QueryParser("id", index.schema).parse(str(id))
+    query = QueryParser("id", ix.schema).parse(str(id))
     results = searcher.search(query, limit=None)
 
     return results[0]
@@ -43,7 +43,7 @@ def search_by_id_index(id):
 def search_all_index():
     ix = index.open_dir(INDEX_FOLDER, indexname=INDEX_ITEMS)
     searcher = ix.searcher()
-    query = QueryParser("name", index.schema).parse("*")
+    query = QueryParser("name", ix.schema).parse("*")
     results = searcher.search(query, limit=None)
 
     return results

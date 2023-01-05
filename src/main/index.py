@@ -38,12 +38,12 @@ def create_indexes():
         image=ID(stored=True),
         detail_image=ID(stored=True),
         description=TEXT(stored=True),
-        brand=ID(stored=True),
-        type=KEYWORD(stored=True, commas=True),
         exterior_finishes=KEYWORD(stored=True, commas=True),
         plastic_colors=KEYWORD(stored=True, commas=True),
         internal_plastic_colors=KEYWORD(stored=True, commas=True),
-        magnets=KEYWORD(stored=True, commas=True),
+        brand=ID(stored=True),
+        type=ID(stored=True),
+        magnets=ID(stored=True),
         size=NUMERIC(stored=True, numtype=float),
         weight=NUMERIC(stored=True, numtype=float),
         release_date=DATETIME(stored=True)
@@ -102,6 +102,7 @@ def create_indexes():
 def load_index_data(index, items):
     writer = index.writer()
 
+    # get ids by name dicts
     brands_ids_by_name = get_brands_ids_by_name()
     types_ids_by_name = get_types_ids_by_name()
     magnets_ids_by_name = get_magnets_ids_by_name()
@@ -113,13 +114,17 @@ def load_index_data(index, items):
 
         item = items[i]
 
-        brand_id = brands_ids_by_name[item['brand']]
-        type_id = types_ids_by_name[item['type']]
-        magnets_id = magnets_ids_by_name[item['magnets']]
-        # TODO: list not supported
-        exterior_finish_id = exterior_finishes_ids_by_name[item['exterior_finishes']]
-        plastic_color_id = plastic_colors_ids_by_name[item['plastic_colors']]
-        interior_plastic_color_id = interior_plastic_colors_ids_by_name[item['internal_plastic_colors']]
+        # get ids for item details from dicts
+        # strings id and comma separated strings ids
+        brand_id = str(brands_ids_by_name[item['brand']])
+        type_id = str(types_ids_by_name[item['type']])
+        magnets_id = str(magnets_ids_by_name[item['magnets']])
+        exterior_finishes_ids = ','.join(map(str, [exterior_finishes_ids_by_name[exterior_finish] for exterior_finish in item['exterior_finishes']]))
+        plastic_colors_ids = ','.join(map(str, [plastic_colors_ids_by_name[plastic_color] for plastic_color in item['plastic_colors']]))
+        interior_plastic_colors_ids = ','.join(map(str, [interior_plastic_colors_ids_by_name[interior_plastic_color] for interior_plastic_color in item['internal_plastic_colors']]))
+
+        print("brand=" + str(type(brand_id)))
+        print("type=" + str(type(type_id)))
 
         writer.add_document(
             id=i,
@@ -130,11 +135,11 @@ def load_index_data(index, items):
             image=item['image'],
             detail_image=item['detail_image'],
             description=item['description'],
+            exterior_finishes=exterior_finishes_ids,
+            plastic_colors=plastic_colors_ids,
+            internal_plastic_colors=interior_plastic_colors_ids,
             brand=brand_id,
             type=type_id,
-            exterior_finishes=exterior_finish_id,
-            plastic_colors=plastic_color_id,
-            internal_plastic_colors=interior_plastic_color_id,
             magnets=magnets_id,
             size=item['size'],
             weight=item['weight'],
