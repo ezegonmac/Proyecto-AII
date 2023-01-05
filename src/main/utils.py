@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 
 def like(request):
-    print(request.POST)
     user = request.POST.get('user_id')
     item = request.POST.get('product_id')
 

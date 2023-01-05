@@ -8,6 +8,7 @@ from django.views.decorators.http import require_http_methods
 from main.forms import ArtistForm, UserForm
 from main.index import load_data
 from main.index_search import search_all_index, search_by_id_index, search_items_index
+from main.index_details_search import get_all_details_names_by_id
 from main.models import Like, UserArtist, UserTagArtist
 from main.populate import populate_database
 from main.recommendations import load_similarities, recommend_artists
@@ -36,7 +37,8 @@ def scraping(request):
 @permission_required('is_superuser')
 def search_all(request):
     items = search_all_index()
-    params = {'num_items': len(items), 'items': items}
+    all_details_names_by_id = get_all_details_names_by_id()
+    params = {'num_items': len(items), 'items': items, **all_details_names_by_id}
     return render(request, 'search_all.html', params)
 
 
@@ -89,7 +91,8 @@ def product_detail(request, id):
 
     item = search_by_id_index(id)
     liked = Like.is_liked(request.user, id)
-    params = {'item': item, 'liked': liked}
+    all_details_names_by_id = get_all_details_names_by_id()
+    params = {'item': item, 'liked': liked, **all_details_names_by_id}
     return render(request, 'product_detail.html', params)
 
 

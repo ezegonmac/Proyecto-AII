@@ -19,7 +19,6 @@ def search_items_index(brand, type, search, request, page_size=20):
     parser = MultifieldParser(["brand", "type"], schema=ix.schema)
     query = parser.parse(f'{brand} {type} {search}')
     items = searcher.search(query, limit=None)
-    print(items)
 
     paginator = Paginator(items, page_size)
     page_number = request.GET.get('page')

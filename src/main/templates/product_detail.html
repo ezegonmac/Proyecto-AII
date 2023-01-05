@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load custom_filters %}
+
 {% block head %}
 	{% load static %}
 	<link rel="stylesheet" href="{% static 'styles/product_detail.css' %}">
@@ -33,12 +35,12 @@
                 <input type="hidden" name="product_id" value="{{item.id}}">
                 <input type="hidden" name="user_id" value="{{user.id}}">
             </form>
-            <p class="product-primary-variant">Colors: {{item.plastic_colors|join:", "}}</p>
+            <p class="product-primary-variant">Colors: {{plastic_colors|get_items:item.plastic_colors|join:", "}}</p>
         </div>
 
         <div class="product-info-bottom">
             <p class="product-price">{{item.price}} €</p>
-            <p class="product-brand">{{item.brand}}</p>
+            <p class="product-brand">{{brands|get_item:item.brand}}</p>
         </div>
 
     </div>
@@ -90,15 +92,15 @@
             <table>
                 <tr>
                     <td>Plastic Color</td>
-                    <td>{{item.plastic_colors|join:", "}}</td>
+                    <td>{{plastic_colors|get_items:item.plastic_colors|join:", "}}</td>
                 </tr>
                 <tr>
                     <td>Exterior Finish</td>
-                    <td>{{item.exterior_finishes|join:", "}}</td>
+                    <td>{{exterior_finishes|get_items:item.exterior_finishes|join:", "}}</td>
                 </tr>
                 <tr>
                     <td>Internal Color</td>
-                    <td>{{item.internal_plastic_colors|join:", "}}</td>
+                    <td>{{interior_plastic_colors|get_items:item.internal_plastic_colors|join:", "}}</td>
                 </tr>
             </table>
         </div>
