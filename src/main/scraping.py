@@ -3,6 +3,7 @@ import urllib.request
 import ssl, os
 import re
 from datetime import datetime
+from main.constants import NUM_PAGES_TO_SCRAPE
 
 # avoid SSL error
 if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
@@ -11,14 +12,19 @@ getattr(ssl, '_create_unverified_context', None)):
 
 
 def scrape():
-    # max 15 WCA pages
-    # max 48 ALL pages
-    items = get_items(47)
-    return items
+    items, details_options = get_items(NUM_PAGES_TO_SCRAPE)
+    return items, details_options
 
 
 def get_items(num_pages):
     items = []
+
+    brands = set()
+    types = set()
+    magnets = set()
+    exterior_finishes = set()
+    plastic_colors = set()
+    internal_plastic_colors = set()
 
     for page in range(0, num_pages):
         print(f'page {page}/{num_pages}')
@@ -38,7 +44,7 @@ def get_items(num_pages):
 
             ctx2 = urllib.request.urlopen(item["url"])
             s2 = BeautifulSoup(ctx2, "lxml")
-            
+
             try:
                 item_details = parse_item_details(s2)
             except Exception as e:
@@ -49,7 +55,23 @@ def get_items(num_pages):
             item = {**item, **item_details}
             items.append(item)
 
-    return items
+            item_brand = item["brand"]
+            item_type = item["type"]
+            item_magnets = item["magnets"]
+            item_exterior_finishes = item["exterior_finishes"]
+            item_plastic_colors = item["plastic_colors"]
+            item_internal_plastic_colors = item["internal_plastic_colors"]
+
+            brands.add(item_brand) if item_brand else None
+            types.add(item_type) if item_type else None
+            magnets.add(item_magnets) if item_magnets else None
+            exterior_finishes.update(item_exterior_finishes) if item_exterior_finishes else None
+            plastic_colors.update(item_plastic_colors) if item_plastic_colors else None
+            internal_plastic_colors.update(item_internal_plastic_colors) if item_internal_plastic_colors else None
+
+    details_options = {"brands": list(brands), "types": list(types), "magnets": list(magnets), "exterior_finishes": list(exterior_finishes), "plastic_colors": list(plastic_colors), "internal_plastic_colors": list(internal_plastic_colors)}
+
+    return items, details_options
 
 
 def parse_item(item_div):
@@ -80,9 +102,9 @@ def parse_item_details(s2):
 
     # variants
     item_product_variants_divs = product_top_div.find("div", id="product-variants").find_all("div", class_="swatch")
-    item_exterior_finishes = ""
-    item_plastic_colors = ""
-    item_internal_plastic_colors = ""
+    item_exterior_finishes = []
+    item_plastic_colors = []
+    item_internal_plastic_colors = []
     for div in item_product_variants_divs:
         label = div.find("div", class_="header").find("span").text.strip()
         values_divs = div.find("div", class_="swatch-content").find_all("div", class_="swatch-element")
@@ -101,7 +123,7 @@ def parse_item_details(s2):
     item_description = rte_div.find("p")
     if not item_description:
         item_description = rte_div.text
-    else :
+    else:
         item_description = item_description.text.strip()
 
     # details

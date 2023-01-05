@@ -1,15 +1,17 @@
-from main.models import UserArtist, UserTagArtist, Like
-from main.forms import UserForm, ArtistForm
-from django.shortcuts import render, get_list_or_404
 from collections import Counter
-from main.recommendations import recommend_artists, load_similarities
-from main.populate import populate_database
-from main.index import load_data, search_items_index
-from main.index import search_all_index, search_by_id_index
+
 from django.contrib.auth.decorators import login_required, permission_required
-from django.views.decorators.http import require_http_methods
-from main.utils import like
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_list_or_404, render
+from django.views.decorators.http import require_http_methods
+
+from main.forms import ArtistForm, UserForm
+from main.index import load_data
+from main.index_search import search_all_index, search_by_id_index, search_items_index
+from main.models import Like, UserArtist, UserTagArtist
+from main.populate import populate_database
+from main.recommendations import load_similarities, recommend_artists
+from main.utils import like
 
 
 @require_http_methods(["GET"])
@@ -42,8 +44,8 @@ def search_all(request):
 @login_required
 def catalog(request):
 
-    active_brand, active_type = 'Any', 'Any'
     search = ""
+    active_brand, active_type = 'Any', 'Any'
 
     if request.method == 'POST':
         if 'like' in request.POST:

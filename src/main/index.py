@@ -1,68 +1,35 @@
-from bs4 import BeautifulSoup
-import urllib.request
-import re, os, shutil
-from datetime import datetime
-from whoosh.index import create_in, open_dir
-from whoosh.fields import Schema, TEXT, NUMERIC, KEYWORD, ID, DATETIME
-from whoosh.qparser import QueryParser, MultifieldParser
+import os
+import shutil
+
+from whoosh import index
+from whoosh.fields import DATETIME, ID, KEYWORD, NUMERIC, TEXT, Schema
+from whoosh.filedb.filestore import FileStorage
+from whoosh.writing import AsyncWriter
+
+from main.constants import INDEX_FOLDER
+from main.index_details_search import (get_brands_ids_by_name,
+                                       get_exterior_finishes_ids_by_name,
+                                       get_interior_plastic_colors_ids_by_name,
+                                       get_magnets_ids_by_name,
+                                       get_plastic_colors_ids_by_name,
+                                       get_types_ids_by_name)
 from main.scraping import scrape
-from django.core.paginator import Paginator
-
-
-def search_items_index(brand, type, search, request, page_size=20):
-
-    if brand == 'Any':
-        brand = '*'
-    if type == 'Any':
-        type = '*'
-    if search == '':
-        search = '*'
-
-    index = open_dir("Index")
-    searcher = index.searcher()
-    parser = MultifieldParser(["brand", "type"], schema=index.schema)
-    query = parser.parse(f'{brand} {type} {search}')
-    items = searcher.search(query, limit=None)
-    print(items)
-
-    paginator = Paginator(items, page_size)
-    page_number = request.GET.get('page')
-    page = paginator.get_page(page_number)
-    page_items = page.object_list
-
-    num_items = len(items)
-
-    return [page_items, page, num_items]
-
-
-def search_by_id_index(id):
-    index = open_dir("Index")
-    searcher = index.searcher()
-    query = QueryParser("id", index.schema).parse(str(id))
-    results = searcher.search(query, limit=None)
-
-    return results[0]
-
-
-def search_all_index():
-    index = open_dir("Index")
-    searcher = index.searcher()
-    query = QueryParser("name", index.schema).parse("*")
-    results = searcher.search(query, limit=None)
-
-    return results
+from main.constants import INDEX_ITEMS, INDEX_BRANDS, INDEX_TYPES, INDEX_MAGNETS, INDEX_EXTERIOR_FINISH, INDEX_PLASTIC_COLOR, INDEX_INTERIOR_PLASTIC_COLOR
 
 
 def load_data():
-    items = scrape()
-    index = create_database()
-    load_database(index, items)
+    items, details_options = scrape()
+
+    ix, details_ixs = create_indexes()
+
+    load_index_details(details_ixs, details_options)
+    load_index_data(ix, items)
 
     return items
 
 
-def create_database():
-    schema = Schema(
+def create_indexes():
+    item_schema = Schema(
         id=NUMERIC(stored=True, unique=True, numtype=int),
         name=TEXT(stored=True, phrase=False),
         short_name=TEXT(stored=True, phrase=False),
@@ -71,7 +38,7 @@ def create_database():
         image=ID(stored=True),
         detail_image=ID(stored=True),
         description=TEXT(stored=True),
-        brand=KEYWORD(stored=True, commas=True),
+        brand=ID(stored=True),
         type=KEYWORD(stored=True, commas=True),
         exterior_finishes=KEYWORD(stored=True, commas=True),
         plastic_colors=KEYWORD(stored=True, commas=True),
@@ -82,22 +49,77 @@ def create_database():
         release_date=DATETIME(stored=True)
         )
 
+    brand_schema = Schema(
+        id=NUMERIC(stored=True, unique=True, numtype=int),
+        name=TEXT(stored=True, phrase=False)
+    )
+
+    type_schema = Schema(
+        id=NUMERIC(stored=True, unique=True, numtype=int),
+        name=TEXT(stored=True, phrase=False)
+    )
+
+    magnets_schema = Schema(
+        id=NUMERIC(stored=True, unique=True, numtype=int),
+        name=TEXT(stored=True, phrase=False)
+    )
+
+    exterior_finish_schema = Schema(
+        id=NUMERIC(stored=True, unique=True, numtype=int),
+        name=TEXT(stored=True, phrase=False)
+    )
+
+    plastic_color_schema = Schema(
+        id=NUMERIC(stored=True, unique=True, numtype=int),
+        name=TEXT(stored=True, phrase=False)
+    )
+
+    interior_plastic_color_schema = Schema(
+        id=NUMERIC(stored=True, unique=True, numtype=int),
+        name=TEXT(stored=True, phrase=False)
+    )
+
     # remove old index
-    if os.path.exists("Index"):
-        shutil.rmtree("Index")
-    os.mkdir("Index")
+    if os.path.exists(INDEX_FOLDER):
+        shutil.rmtree(INDEX_FOLDER)
+    os.mkdir(INDEX_FOLDER)
 
-    index = create_in("Index", schema=schema)
+    storage = FileStorage(INDEX_FOLDER)
 
-    return index
+    ix = index.create_in(INDEX_FOLDER, item_schema, indexname=INDEX_ITEMS)
+
+    ix_brands = index.create_in(INDEX_FOLDER, brand_schema, indexname=INDEX_BRANDS)
+    ix_types = index.create_in(INDEX_FOLDER, type_schema, indexname=INDEX_TYPES)
+    ix_magnets = index.create_in(INDEX_FOLDER, magnets_schema, indexname=INDEX_MAGNETS)
+    ix_exterior_finishes = index.create_in(INDEX_FOLDER, exterior_finish_schema, indexname=INDEX_EXTERIOR_FINISH)
+    ix_plastic_colors = index.create_in(INDEX_FOLDER, plastic_color_schema, indexname=INDEX_PLASTIC_COLOR)
+    ix_interior_plastic_colors = index.create_in(INDEX_FOLDER, interior_plastic_color_schema, indexname=INDEX_INTERIOR_PLASTIC_COLOR)
+    details_ixs = {'ix_brands': ix_brands, 'ix_types': ix_types, 'ix_magnets': ix_magnets, 'ix_exterior_finishes': ix_exterior_finishes, 'ix_plastic_colors': ix_plastic_colors, 'ix_interior_plastic_colors': ix_interior_plastic_colors}
+
+    return ix, details_ixs
 
 
-def load_database(index, items):
+def load_index_data(index, items):
     writer = index.writer()
+
+    brands_ids_by_name = get_brands_ids_by_name()
+    types_ids_by_name = get_types_ids_by_name()
+    magnets_ids_by_name = get_magnets_ids_by_name()
+    exterior_finishes_ids_by_name = get_exterior_finishes_ids_by_name()
+    plastic_colors_ids_by_name = get_plastic_colors_ids_by_name()
+    interior_plastic_colors_ids_by_name = get_interior_plastic_colors_ids_by_name()
 
     for i in range(len(items)):
 
         item = items[i]
+
+        brand_id = brands_ids_by_name[item['brand']]
+        type_id = types_ids_by_name[item['type']]
+        magnets_id = magnets_ids_by_name[item['magnets']]
+        # TODO: list not supported
+        exterior_finish_id = exterior_finishes_ids_by_name[item['exterior_finishes']]
+        plastic_color_id = plastic_colors_ids_by_name[item['plastic_colors']]
+        interior_plastic_color_id = interior_plastic_colors_ids_by_name[item['internal_plastic_colors']]
 
         writer.add_document(
             id=i,
@@ -108,12 +130,12 @@ def load_database(index, items):
             image=item['image'],
             detail_image=item['detail_image'],
             description=item['description'],
-            brand=item['brand'],
-            type=item['type'],
-            exterior_finishes=item['exterior_finishes'],
-            plastic_colors=item['plastic_colors'],
-            internal_plastic_colors=item['internal_plastic_colors'],
-            magnets=item['magnets'],
+            brand=brand_id,
+            type=type_id,
+            exterior_finishes=exterior_finish_id,
+            plastic_colors=plastic_color_id,
+            internal_plastic_colors=interior_plastic_color_id,
+            magnets=magnets_id,
             size=item['size'],
             weight=item['weight'],
             release_date=item['release_date']
@@ -121,6 +143,89 @@ def load_database(index, items):
 
     writer.commit()
     print("###################################")
-    print("Index created")
+    print("ITEMS INDEX CREATED")
+    print("-----------------------------------")
     print("Number of items: " + str(len(items)))
+    print("###################################\n\n")
+
+
+def load_index_details(details_ixs, details_options):
+
+    brands = details_options['brands']
+    types = details_options['types']
+    magnets = details_options['magnets']
+    exterior_finishes = details_options['exterior_finishes']
+    plastic_colors = details_options['plastic_colors']
+    internal_plastic_colors = details_options['internal_plastic_colors']
+
+    ix_brands = details_ixs['ix_brands']
+    ix_types = details_ixs['ix_types']
+    ix_magnets = details_ixs['ix_magnets']
+    ix_exterior_finishes = details_ixs['ix_exterior_finishes']
+    ix_plastic_colors = details_ixs['ix_plastic_colors']
+    ix_interior_plastic_colors = details_ixs['ix_interior_plastic_colors']
+
+    writer = AsyncWriter(ix_brands)
+    for i in range(len(brands)):
+        brand = brands[i]
+        writer.add_document(
+            id=i,
+            name=brand
+        )
+    writer.commit()
+
+    writer = AsyncWriter(ix_types)
+    for i in range(len(types)):
+        type = types[i]
+        writer.add_document(
+            id=i,
+            name=type
+        )
+    writer.commit()
+
+    writer = AsyncWriter(ix_magnets)
+    for i in range(len(magnets)):
+        magnet = magnets[i]
+        writer.add_document(
+            id=i,
+            name=magnet
+        )
+    writer.commit()
+
+    writer = AsyncWriter(ix_exterior_finishes)
+    for i in range(len(exterior_finishes)):
+        exterior_finish = exterior_finishes[i]
+        writer.add_document(
+            id=i,
+            name=exterior_finish
+        )
+    writer.commit()
+
+    writer = AsyncWriter(ix_plastic_colors)
+    for i in range(len(plastic_colors)):
+        plastic_color = plastic_colors[i]
+        writer.add_document(
+            id=i,
+            name=plastic_color
+        )
+    writer.commit()
+
+    writer = AsyncWriter(ix_interior_plastic_colors)
+    for i in range(len(internal_plastic_colors)):
+        internal_plastic_color = internal_plastic_colors[i]
+        writer.add_document(
+            id=i,
+            name=internal_plastic_color
+        )
+    writer.commit()
+
     print("###################################")
+    print("DETAILS INDEX CREATED")
+    print("-----------------------------------")
+    print("Number of brands: " + str(len(brands)))
+    print("Number of types: " + str(len(types)))
+    print("Number of magnets: " + str(len(magnets)))
+    print("Number of exterior finishes: " + str(len(exterior_finishes)))
+    print("Number of plastic colors: " + str(len(plastic_colors)))
+    print("Number of internal plastic colors: " + str(len(internal_plastic_colors)))
+    print("###################################\n\n")
