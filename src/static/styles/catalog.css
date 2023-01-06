@@ -7,11 +7,27 @@
     padding: 3rem;
 }
 
+.catalog-grid::before {
+    content: "";
+    position: absolute;
+    top: 15%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/hero-blobs.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    opacity: 0.2;
+    overflow: visible;
+}
+
 .product-card {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    border-bottom: 3px solid var(--color-gray-700);
+    border-bottom: 3px solid var(--color-white);
     background-color: var(--color-gray-925);
 }
 
@@ -74,7 +90,7 @@
     font-size: 1.3rem;
     color: var(--color-orange);
     font-weight: bold;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .pagination {
