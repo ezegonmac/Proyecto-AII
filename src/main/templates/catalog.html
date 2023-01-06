@@ -11,13 +11,13 @@ Catalog
 
 {% block content %}
 
-    <h1>Catalog</h1>
+    <h1 class="title">Catalog</h1>
 
-	<p>Loaded {{num_items}} items</p>
-
-    <hr>
+    {% comment %} <hr> {% endcomment %}
 
     {% include "components/filter_form.html"%}
+
+	<p class="items-found">Found {{num_items}} items</p>
 
     <div class="catalog-grid">
         {% for item in items %}

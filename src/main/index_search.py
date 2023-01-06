@@ -5,7 +5,7 @@ from whoosh.qparser import MultifieldParser, QueryParser, FuzzyTermPlugin, query
 from main.constants import INDEX_FOLDER, INDEX_ITEMS
 
 
-def search_items_index(brand, type, search, page_number, page_size=20):
+def search_items_index(brand, type, magnets, search, page_number, page_size=20):
 
     ix = index.open_dir(INDEX_FOLDER, indexname=INDEX_ITEMS)
     searcher = ix.searcher()
@@ -15,10 +15,13 @@ def search_items_index(brand, type, search, page_number, page_size=20):
         brand = '*'
     if type == 'Any':
         type = '*'
+    if magnets == 'Any':
+        magnets = '*'
 
     brand_query = QueryParser("brand", schema=ix.schema).parse(str(brand))
     type_query = QueryParser("type", schema=ix.schema).parse(str(type))
-    filters_query = query.And([brand_query, type_query])
+    magnets_query = QueryParser("magnets", schema=ix.schema).parse(str(magnets))
+    filters_query = query.And([brand_query, type_query, magnets_query])
 
     # search query
     if search == '':

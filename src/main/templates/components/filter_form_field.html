@@ -1,6 +1,6 @@
 <select class="form-select" aria-label="Select" name="{{name}}">   
     
-    <option {% if active == "Any" %}selected{% endif %}>Any</option>
+    <option {% if active == "Any" %}selected{% endif %} value="Any">Any {{name}}</option>
     {% for id, name in options.items %}
         <option {% if active == id %}selected{% endif %} value="{{id}}">{{name}}</option>
     {% endfor %}

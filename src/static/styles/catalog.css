@@ -1,4 +1,8 @@
 
+.title {
+    margin-bottom: 3rem;
+}
+
 .catalog-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -21,6 +25,35 @@
     z-index: -1;
     opacity: 0.2;
     overflow: visible;
+}
+
+.filter-form {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--color-gray-925);
+    border-radius: 0.5rem;
+}
+
+.filter-form input, .filter-form select, .filter-form button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--color-gray-900);
+    color: var(--color-gray-400);
+    font-size: 1rem;
+    font-weight: 400;
+    outline: none;
+}
+
+.items-found {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0.5rem;
+    color: var(--color-gray-400);
+    font-size: 1rem;
+    font-weight: 400;
 }
 
 .product-card {

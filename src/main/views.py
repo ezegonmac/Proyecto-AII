@@ -48,12 +48,12 @@ def catalog(request):
 
     # search and filtering default values
     default_search = ""
-    default_brand, default_type = 'Any', 'Any'
+    default_brand, default_type, default_magnets = 'Any', 'Any', 'Any'
 
     default_page = 1
 
     active_search = default_search
-    active_brand, active_type = default_brand, default_type
+    active_brand, active_type, active_magnets = default_brand, default_type, default_magnets
 
     active_page = default_page
 
@@ -66,6 +66,7 @@ def catalog(request):
             active_search = request.POST.get('Search', default_search)
             active_brand = request.POST.get('Brand', default_brand)
             active_type = request.POST.get('Type', default_type)
+            active_magnets = request.POST.get('Magnets', default_magnets)
 
             active_page = request.POST.get('Type', default_page)
 
@@ -74,15 +75,17 @@ def catalog(request):
         active_search = request.GET.get('search', default_search)
         active_brand = request.GET.get('brand', default_brand)
         active_type = request.GET.get('type', default_type)
+        active_magnets = request.GET.get('magnets', default_magnets)
 
         active_page = request.GET.get('page', default_page)
 
     # cast to int
     active_brand = int(active_brand) if active_brand.isnumeric() else default_brand
     active_type = int(active_type) if active_type.isnumeric() else default_type
+    active_magnets = int(active_magnets) if active_magnets.isnumeric() else default_magnets
 
     [items, page, num_items] = search_items_index(
-        active_brand, active_type, active_search, active_page, page_size=10
+        active_brand, active_type, active_magnets, active_search, active_page, page_size=10
         )
 
     # choices for filters
@@ -96,6 +99,7 @@ def catalog(request):
         'likes': likes,
         'active_brand': active_brand,
         'active_type': active_type,
+        'active_magnets': active_magnets,
         'search': active_search,
         **choices
         }
