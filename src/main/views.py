@@ -57,7 +57,6 @@ def catalog(request):
             search = request.POST.get('Search', search)
             brand = request.POST.get('Brand', brand)
             type = request.POST.get('Type', type)
-            print(f'brand: {brand}, type: {type} search: {search}')
 
 # TODO: poner como brand y type arriba ?¿
     if request.GET.get('search'):
@@ -70,8 +69,11 @@ def catalog(request):
         brand, type, search, request, page_size=10
         )
 
+    # cast to int
+    brand = int(brand) if brand != 'Any' else None
+    type = int(type) if type != 'Any' else None
+
     choices = get_all_details_names_by_id()
-    print(choices)
 
     likes = Like.get_user_liked_items(request.user)
     params = {

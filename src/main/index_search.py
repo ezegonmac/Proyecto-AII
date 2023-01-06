@@ -18,14 +18,14 @@ def search_items_index(brand, type, search, request, page_size=20):
     searcher = ix.searcher()
 
     # filters query
-    filters_parser = MultifieldParser(["brand", "type"], schema=ix.schema)
-    filters_query = filters_parser.parse(f'{brand} {type}')
+    brand_query = QueryParser("brand", schema=ix.schema).parse(brand)
+    type_query = QueryParser("type", schema=ix.schema).parse(type)
+    filters_query = query.And([brand_query, type_query])
 
     # search query
     if search != '*':
-        max_fuzzy_dist = 2
+        max_fuzzy_dist = 1
         search = search.replace(' ', f'~{max_fuzzy_dist} ') + f'~{max_fuzzy_dist}'
-    print(f'search: {search}')
     search_parser = MultifieldParser(["name", "description"], schema=ix.schema)
     search_parser.add_plugin(FuzzyTermPlugin())
     search_query = search_parser.parse(search)

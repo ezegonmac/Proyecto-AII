@@ -2,10 +2,6 @@
     
     <option {% if active == "Any" %}selected{% endif %}>Any</option>
     {% for id, name in options.items %}
-        {% if active == id %}
-            <option selected value="{{id}}">{{name}}</option>
-        {% else %}
-            <option value="{{id}}">{{name}}</option>
-        {% endif %}
+        <option {% if active == id %}selected{% endif %} value="{{id}}">{{name}}</option>
     {% endfor %}
 </select>

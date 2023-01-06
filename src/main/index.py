@@ -36,7 +36,7 @@ def create_indexes():
 
     item_schema = Schema(
         id=NUMERIC(stored=True, unique=True, numtype=int),
-        name=TEXT(stored=True, phrase=False, analyzer=analyzer),
+        name=TEXT(stored=True, phrase=False, analyzer=analyzer,),
         short_name=TEXT(stored=True, phrase=False, analyzer=analyzer),
         price=NUMERIC(stored=True, numtype=float),
         url=ID(stored=True),
@@ -121,9 +121,12 @@ def load_index_data(index, items):
 
         # get ids for item details from dicts
         # strings id and comma separated strings ids
-        brand_id = str(brands_ids_by_name[item['brand']])
-        type_id = str(types_ids_by_name[item['type']])
-        magnets_id = str(magnets_ids_by_name[item['magnets']])
+        brand = item['brand']
+        type = item['type']
+        magnets = item['magnets']
+        brand_id = str(brands_ids_by_name[brand]) if brand else None
+        type_id = str(types_ids_by_name[type]) if type else None
+        magnets_id = str(magnets_ids_by_name[magnets]) if magnets else None
         exterior_finishes_ids = ','.join(map(str, [exterior_finishes_ids_by_name[exterior_finish] for exterior_finish in item['exterior_finishes']]))
         plastic_colors_ids = ','.join(map(str, [plastic_colors_ids_by_name[plastic_color] for plastic_color in item['plastic_colors']]))
         interior_plastic_colors_ids = ','.join(map(str, [interior_plastic_colors_ids_by_name[interior_plastic_color] for interior_plastic_color in item['internal_plastic_colors']]))

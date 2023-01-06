@@ -1,7 +1,7 @@
 
 # SCRAPING
 
-NUM_PAGES_TO_SCRAPE = 1 # max 48 ALL pages
+NUM_PAGES_TO_SCRAPE = 15 # max 48 ALL pages
 
 
 # INDEX
