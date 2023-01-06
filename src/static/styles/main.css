@@ -3,11 +3,17 @@
 
 :root {
     /* Color palette */
-    --color-white: #FAFAFA;
     --color-black: #050505;
-    --color-gray: #1F1F1F;
-    --color-light-gray: #3E4346;
-    --color-lighter-gray: #798186;
+    --color-gray-925: #1d1d1d;
+    --color-gray-900: #1F1F1F;
+    --color-gray-875: #222222;
+    --color-gray-800: #444444;
+    --color-gray-700: #6a6a6a;
+    --color-gray-600: #8f8f8f;
+    --color-gray-500: #b4b4b4;
+    --color-gray-400: #dadada;
+    --color-gray-300: #dadada;
+    --color-white: #FAFAFA;
     --color-lime: #9AF130;
     --color-orange: #F2A128;
     --color-magenta: #F1397D;
@@ -23,7 +29,7 @@
 }
 
 body {
-    background-color: var(--color-gray);
+    background-color: var(--color-gray-900);
     color: var(--color-white);
     /* Pushes content below fixed-top navbar */
     padding-top: 5em;

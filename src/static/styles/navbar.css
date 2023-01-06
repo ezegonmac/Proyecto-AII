@@ -1,6 +1,6 @@
 .navbar-minimal {
   padding-top: 1em;
-  background-color: var(--color-gray);
+  background-color: var(--color-gray-900);
 }
 
 .navbar-minimal .navbar-brand {
@@ -22,7 +22,7 @@
 }
 
 .navbar-minimal .navbar-text {
-    color: var(--color-light-gray);
+    color: var(--color-gray-700);
 }
 
 .navbar-minimal .nav-link {
@@ -35,7 +35,7 @@
 
 .navbar-minimal .nav-link:hover,
 .navbar-minimal .nav-link:focus {
-    color: var(--color-gray);
+    color: var(--color-gray-900);
     background-color: var(--color-cyan);
 }
 
@@ -49,7 +49,7 @@
 .nav-link.disabled,
 .nav-link.disabled:hover,
 .nav-link.disabled:focus {
-    color: var(--color-light-gray);
+    color: var(--color-gray-700);
     background-color: transparent;
 }
 
@@ -72,7 +72,7 @@
 fieldset[disabled] .navbar-minimal .btn-link:hover,
 .navbar-minimal .btn-link[disabled]:focus,
 fieldset[disabled] .navbar-minimal .btn-link:focus {
-  color: var(--color-light-gray);
+  color: var(--color-gray-700);
 }
 
 .navbar-minimal .nav-user-item {
