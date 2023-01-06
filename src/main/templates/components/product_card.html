@@ -7,7 +7,7 @@
     <div class="product-info">
         <div class="product-info-top">
             <a class="product-name" href="{% url 'product' item.id %}">{{item.name}}</a>
-            <form method="post" action="{% url 'catalog' %}">
+            <form method="post" action="{% url 'catalog'%}?{{ request.GET.urlencode }}">
                 {% csrf_token %}
                 <button type="submit" class="product-like" name="like">
                     {% if item.id in likes %}

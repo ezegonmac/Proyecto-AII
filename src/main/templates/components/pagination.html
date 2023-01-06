@@ -6,20 +6,20 @@
         {% if page.has_previous %}
             <li class="pag-item">
                 <a class="pag-item-link" 
-                href="?page=1&search={{ search }}&category={{ active_category }}&department={{ active_department}}&producer={{ active_producer }}">
+                href="?page=1&search={{ search }}&brand={{ active_brand }}&type={{ active_type }}">
                     1
                 </a>
-            </li>
+            </li>   
             <li class="pag-item">
                 <a class="pag-item-link" 
-                href="?page={{ page.previous_page_number }}&search={{ search }}&category={{ active_category }}&department={{ active_department}}&producer={{ active_producer }}">
+                href="?page={{ page.previous_page_number }}&search={{ search }}&brand={{ active_brand }}&type={{ active_type }}">
                     <img src="{% static 'icons/back-90.png' %}" alt="previous page">
                 </a>
             </li>
         {% endif %}
         <li class="pag-item">
             <a class="pag-item-link active" 
-            href="?page={{  page.number }}&search={{ search }}&category={{ active_category }}&department={{ active_department}}&producer={{ active_producer }}">
+            href="?page={{  page.number }}&search={{ search }}&brand={{ active_brand }}&type={{ active_type }}">
                 {{ page.number }}
             </a>
         </li>
@@ -27,13 +27,13 @@
 
             <li class="pag-item">
                 <a class="pag-item-link" 
-                href="?page={{ page.next_page_number }}&search={{ search }}&category={{ active_category }}&department={{ active_department}}&producer={{ active_producer }}">
+                href="?page={{ page.next_page_number }}&search={{ search }}&brand={{ active_brand }}&type={{ active_type }}">
                     <img src="{% static 'icons/forward-90.png' %}" alt="next page">
                 </a>
             </li>
             <li class="pag-item">
                 <a class="pag-item-link" 
-                href="?page={{ page.paginator.num_pages }}&search={{ search }}&category={{ active_category }}&department={{ active_department}}&producer={{ active_producer }}">
+                href="?page={{ page.paginator.num_pages }}&search={{ search }}&brand={{ active_brand }}&type={{ active_type }}">
                     {{ page.paginator.num_pages }}
                 </a>
             </li>

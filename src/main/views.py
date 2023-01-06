@@ -46,33 +46,46 @@ def search_all(request):
 @login_required
 def catalog(request):
 
-    search = ""
-    brand, type = 'Any', 'Any'
+    # search and filtering default values
+    default_search = ""
+    default_brand, default_type = 'Any', 'Any'
 
+    default_page = 1
+
+    active_search = default_search
+    active_brand, active_type = default_brand, default_type
+
+    active_page = default_page
+
+    # like and filter actions
     if request.method == 'POST':
         if 'like' in request.POST:
             like(request)
             return HttpResponseRedirect(request.path_info)
         elif 'filter' in request.POST:
-            search = request.POST.get('Search', search)
-            brand = request.POST.get('Brand', brand)
-            type = request.POST.get('Type', type)
+            active_search = request.POST.get('Search', default_search)
+            active_brand = request.POST.get('Brand', default_brand)
+            active_type = request.POST.get('Type', default_type)
 
-# TODO: poner como brand y type arriba ?¿
-    if request.GET.get('search'):
-        search = request.GET.get('search')
-    if request.GET.get('brand'):
-        brand = request.GET.get('brand')
-    if request.GET.get('type'):
-        type = request.GET.get('type')
-    [items, page, num_items] = search_items_index(
-        brand, type, search, request, page_size=10
-        )
+            active_page = request.POST.get('Type', default_page)
+
+    # url parameters
+    if request.method == 'GET':
+        active_search = request.GET.get('search', default_search)
+        active_brand = request.GET.get('brand', default_brand)
+        active_type = request.GET.get('type', default_type)
+
+        active_page = request.GET.get('page', default_page)
 
     # cast to int
-    brand = int(brand) if brand != 'Any' else None
-    type = int(type) if type != 'Any' else None
+    active_brand = int(active_brand) if active_brand.isnumeric() else default_brand
+    active_type = int(active_type) if active_type.isnumeric() else default_type
 
+    [items, page, num_items] = search_items_index(
+        active_brand, active_type, active_search, active_page, page_size=10
+        )
+
+    # choices for filters
     choices = get_all_details_names_by_id()
 
     likes = Like.get_user_liked_items(request.user)
@@ -81,9 +94,9 @@ def catalog(request):
         'items': items,
         'page': page,
         'likes': likes,
-        'active_brand': brand,
-        'active_type': type,
-        'search': search,
+        'active_brand': active_brand,
+        'active_type': active_type,
+        'search': active_search,
         **choices
         }
 
