@@ -131,11 +131,11 @@ def parse_item_details(s2):
     detail_label_divs = item_details_div.find_all("label", class_="infodatalabel")
     detail_value_divs = item_details_div.find_all("label", class_="infolabel")
 
-    item_type = ""
-    item_magnets = ""
-    item_size = ""
-    item_weight = ""
-    item_release_date = ""
+    item_type = None
+    item_magnets = None
+    item_size = None
+    item_weight = None
+    item_release_date = None
     for label, value in zip(detail_label_divs, detail_value_divs):
         if label.text.strip() == "Type":
             item_type = value.text.strip()

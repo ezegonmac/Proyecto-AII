@@ -90,7 +90,7 @@ def get_all_details_names_by_id():
     return {
         "brands": get_brands_names_by_id(),
         "types": get_types_names_by_id(),
-        "magnets": get_magnets_names_by_id(),
+        "magnets_types": get_magnets_names_by_id(),
         "exterior_finishes": get_exterior_finishes_names_by_id(),
         "plastic_colors": get_plastic_colors_names_by_id(),
         "interior_plastic_colors": get_interior_plastic_colors_names_by_id(),

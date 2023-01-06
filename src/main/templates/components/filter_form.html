@@ -5,7 +5,7 @@
     
     {% include "components/filter_form_field.html" with options=types name='Type' active=active_type %}
     {% include "components/filter_form_field.html" with options=brands name='Brand' active=active_brand %}
-    {% include "components/filter_form_field.html" with options=magnets name='Magnets' active=active_magnets %}
+    {% include "components/filter_form_field.html" with options=magnets_types name='Magnets' active=active_magnets %}
 
     <button type="submit" name="filter">Search</button>
 </form>
