@@ -57,7 +57,7 @@ def get_detail_names_by_id(index_name):
         query = QueryParser("name", ix_brands.schema).parse("*")
         results = searcher.search(query, limit=None)
 
-        details_names_by_id = {str(result["id"]): result["name"] for result in results}
+        details_names_by_id = {result["id"]: result["name"] for result in results}
 
     return details_names_by_id
 

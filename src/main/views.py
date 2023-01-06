@@ -47,26 +47,31 @@ def search_all(request):
 def catalog(request):
 
     search = ""
-    active_brand, active_type = 'Any', 'Any'
+    brand, type = 'Any', 'Any'
 
     if request.method == 'POST':
         if 'like' in request.POST:
             like(request)
             return HttpResponseRedirect(request.path_info)
         elif 'filter' in request.POST:
-            brand = request.POST.get('Brand', 'Any')
-            type = request.POST.get('Type', 'Any')
-            active_brand, active_type = brand, type
+            search = request.POST.get('Search', search)
+            brand = request.POST.get('Brand', brand)
+            type = request.POST.get('Type', type)
+            print(f'brand: {brand}, type: {type} search: {search}')
 
+# TODO: poner como brand y type arriba ?¿
     if request.GET.get('search'):
         search = request.GET.get('search')
     if request.GET.get('brand'):
-        active_brand = request.GET.get('brand')
+        brand = request.GET.get('brand')
     if request.GET.get('type'):
-        active_type = request.GET.get('type')
+        type = request.GET.get('type')
     [items, page, num_items] = search_items_index(
-        active_brand, active_type, search, request, page_size=10
+        brand, type, search, request, page_size=10
         )
+
+    choices = get_all_details_names_by_id()
+    print(choices)
 
     likes = Like.get_user_liked_items(request.user)
     params = {
@@ -74,9 +79,10 @@ def catalog(request):
         'items': items,
         'page': page,
         'likes': likes,
-        'active_brand': active_brand,
-        'active_type': active_type,
+        'active_brand': brand,
+        'active_type': type,
         'search': search,
+        **choices
         }
 
     return render(request, 'catalog.html', params)

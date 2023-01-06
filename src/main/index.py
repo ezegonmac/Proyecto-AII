@@ -5,6 +5,7 @@ from whoosh import index
 from whoosh.fields import DATETIME, ID, KEYWORD, NUMERIC, TEXT, Schema
 from whoosh.filedb.filestore import FileStorage
 from whoosh.writing import AsyncWriter
+from whoosh.analysis import LowercaseFilter, RegexTokenizer
 
 from main.constants import INDEX_FOLDER
 from main.index_details_search import (get_brands_ids_by_name,
@@ -29,15 +30,19 @@ def load_data():
 
 
 def create_indexes():
+
+    # Create an analyzer for searching that lowercases the input
+    analyzer = RegexTokenizer() | LowercaseFilter()
+
     item_schema = Schema(
         id=NUMERIC(stored=True, unique=True, numtype=int),
-        name=TEXT(stored=True, phrase=False),
-        short_name=TEXT(stored=True, phrase=False),
+        name=TEXT(stored=True, phrase=False, analyzer=analyzer),
+        short_name=TEXT(stored=True, phrase=False, analyzer=analyzer),
         price=NUMERIC(stored=True, numtype=float),
         url=ID(stored=True),
         image=ID(stored=True),
         detail_image=ID(stored=True),
-        description=TEXT(stored=True),
+        description=TEXT(stored=True, analyzer=analyzer),
         exterior_finishes=KEYWORD(stored=True, commas=True),
         plastic_colors=KEYWORD(stored=True, commas=True),
         internal_plastic_colors=KEYWORD(stored=True, commas=True),
@@ -122,9 +127,6 @@ def load_index_data(index, items):
         exterior_finishes_ids = ','.join(map(str, [exterior_finishes_ids_by_name[exterior_finish] for exterior_finish in item['exterior_finishes']]))
         plastic_colors_ids = ','.join(map(str, [plastic_colors_ids_by_name[plastic_color] for plastic_color in item['plastic_colors']]))
         interior_plastic_colors_ids = ','.join(map(str, [interior_plastic_colors_ids_by_name[interior_plastic_color] for interior_plastic_color in item['internal_plastic_colors']]))
-
-        print("brand=" + str(type(brand_id)))
-        print("type=" + str(type(type_id)))
 
         writer.add_document(
             id=i,

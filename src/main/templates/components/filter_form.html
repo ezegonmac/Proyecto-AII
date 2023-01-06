@@ -1,0 +1,10 @@
+
+<form class="filter-form" method="post" action="{% url 'catalog' %}">
+    {% csrf_token %}
+    <input type="text" placeholder="Search product" aria-label="Search" name="Search" value="{{ search }}">
+    
+    {% include "components/filter_form_field.html" with options=types name='Type' active=active_type %}
+    {% include "components/filter_form_field.html" with options=brands name='Brand' active=active_brand %}
+
+    <button type="submit" name="filter">Search</button>
+</form>

@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from whoosh import index
-from whoosh.qparser import MultifieldParser, QueryParser
+from whoosh.qparser import MultifieldParser, QueryParser, FuzzyTermPlugin, OperatorsPlugin, query
 
 from main.constants import INDEX_FOLDER, INDEX_ITEMS
 
@@ -16,9 +16,23 @@ def search_items_index(brand, type, search, request, page_size=20):
 
     ix = index.open_dir(INDEX_FOLDER, indexname=INDEX_ITEMS)
     searcher = ix.searcher()
-    parser = MultifieldParser(["brand", "type"], schema=ix.schema)
-    query = parser.parse(f'{brand} {type} {search}')
-    items = searcher.search(query, limit=None)
+
+    # filters query
+    filters_parser = MultifieldParser(["brand", "type"], schema=ix.schema)
+    filters_query = filters_parser.parse(f'{brand} {type}')
+
+    # search query
+    if search != '*':
+        max_fuzzy_dist = 2
+        search = search.replace(' ', f'~{max_fuzzy_dist} ') + f'~{max_fuzzy_dist}'
+    print(f'search: {search}')
+    search_parser = MultifieldParser(["name", "description"], schema=ix.schema)
+    search_parser.add_plugin(FuzzyTermPlugin())
+    search_query = search_parser.parse(search)
+
+    all_query = query.And([filters_query, search_query])
+
+    items = searcher.search(all_query, limit=None)
 
     paginator = Paginator(items, page_size)
     page_number = request.GET.get('page')
