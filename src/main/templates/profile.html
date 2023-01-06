@@ -14,7 +14,7 @@
     <p>{{ user.profile.bio }}</p>
     {% endif %}
 
-    <h2>Recent Posts</h2>
+    <h2>Liked Posts</h2>
     {% for post in user.posts.all %}
     <h3>{{ post.title }}</h3>
     <p>{{ post.body }}</p>
