@@ -13,20 +13,22 @@ Login
 
   <h1 class="title">Login</h1>
 
+  {% if form.errors or next %}
   <div class="message">
     {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
     
     {% if next %}
-    {% if user.is_authenticated %}
+      {% if user.is_authenticated %}
     <p>Your account doesn't have access to this page. To proceed,
       please login with an account that has access.</p>
       {% else %}
       <p>Please login to see this page.</p>
       {% endif %}
-      {% endif %}
+    {% endif %}
   </div>
+  {% endif %}
 
   <form class="login-form" method="post" action="{% url 'login' %}">
     {% csrf_token %}
@@ -42,8 +44,10 @@ Login
     </table>
     <input class="form-button" type="submit" value="Login">
     <input type="hidden" name="next" value="{{ next }}">
+    
+    <a class="signup-button" href="{% url 'signup' %}">Signup</a>
   </form>
 
-  <p class="lost-passwd"><a href="{% url 'password_reset' %}">Lost password?</a></p>
+  {% comment %} <p class="lost-passwd"><a href="{% url 'password_reset' %}">Lost password?</a></p> {% endcomment %}
 
 {% endblock %}

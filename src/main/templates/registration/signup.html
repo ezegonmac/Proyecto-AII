@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+{% endblock head %}
+
+{% block title %}
+Sign Up
+{% endblock title %}
+
+{% block content %}
+  <h1 class="title">Sign Up</h1>
+
+    {% if form.errors %}
+    <div class="message">
+      <p>There was a problem with your submission. Please try again.</p>
+    </div>
+    {% endif %}
+
+  <form class="login-form" method="post" action="{% url 'signup' %}">
+    {% csrf_token %}
+    <table>
+      {% for field in form %}
+        <tr>
+          <td class="form-label">{{ field.label_tag }}</td>
+          <td class="form-input">{{ field }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <input class="form-button" type="submit" value="Sign Up">
+  </form>
+{% endblock %}
