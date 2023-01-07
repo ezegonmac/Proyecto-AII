@@ -45,8 +45,11 @@ Login
     <input class="form-button" type="submit" value="Login">
     <input type="hidden" name="next" value="{{ next }}">
     
-    <a class="signup-button" href="{% url 'signup' %}">Signup</a>
   </form>
+
+  <div class="extra-section">
+    <a class="signup-button" href="{% url 'signup' %}">Signup</a>
+  </div>
 
   {% comment %} <p class="lost-passwd"><a href="{% url 'password_reset' %}">Lost password?</a></p> {% endcomment %}
 

@@ -79,6 +79,18 @@
     text-decoration: none;
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
     transition-duration: 0.5s;
+    margin: auto 0;
+}
+
+.extra-section {
+    width: 40%;
+    min-width: 300px;
+    margin-inline: auto;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
 .signup-button:hover {
