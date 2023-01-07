@@ -8,7 +8,7 @@
         <div class="product-info-top">
             <a class="product-name" href="{% url 'product' item.id %}">{{item.name}}</a>
             
-            {% if request.path == '/catalog/' %}
+            {% if request.path == '/catalog/' or request.path == '/recommendations/' %}
             <form method="post" action="{% url 'catalog'%}?{{ request.GET.urlencode }}">
                 {% csrf_token %}
                 

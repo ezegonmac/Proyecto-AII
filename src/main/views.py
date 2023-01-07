@@ -136,8 +136,14 @@ def profile(request):
 @login_required
 def recommendations(request):
     user_id = request.user.id
-    recommended_items = recommend_items(user_id)
-    params = {'recommended_items': recommended_items}
+
+    likes = Like.get_user_liked_items_id(request.user)
+    recommended_items = recommend_items(user_id)[0:20]
+    params = {
+        'items': recommended_items,
+        'num_items': len(recommended_items),
+        'likes': likes,
+        }
 
     return render(request, 'recommendations.html', params)
 

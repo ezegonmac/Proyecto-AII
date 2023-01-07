@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'styles/catalog.css' %}">
+	<link rel="stylesheet" href="{% static 'styles/catalog_grid.css' %}">
+	<link rel="stylesheet" href="{% static 'styles/pagination.css' %}">
+{% endblock head %}
+
+{% block title %}
+For You
+{% endblock title %}
+
+{% block content %}
+
+    <h1 class="title">For You</h1>
+
+    {% comment %} <hr> {% endcomment %}
+
+    {% comment %} {% include "components/filter_form.html"%} {% endcomment %}
+
+	<p class="items-found">Found {{num_items}} items</p>
+
+    <div class="catalog-grid">
+        {% for item in items %}
+            {% include "components/product_card.html" with item=item %}
+        {% endfor %}
+    </div>
+
+    {% comment %} {% include "components/pagination.html" %} {% endcomment %}
+
+{% endblock %}

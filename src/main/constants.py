@@ -17,12 +17,12 @@ INDEX_INTERIOR_PLASTIC_COLOR = "interior_plastic_colors_index"
 
 # RECOMMENDATIONS
 
-ATTRIBUTES_FOR_SIMILARITY = [
-    "name",
-    "price",
-    "brand",
-    "type",
-    "magnets",
-    "size",
-    "weight"
-    ]
+ATTRIBUTES_WEIGHTS = {
+    "short_name": 0.0,
+    "price": 0.0,
+    "brand": 4.0,
+    "type": 0.0,
+    "magnets": 0.0,
+    "size": 0.0,
+    "weight": 0.0,
+    }

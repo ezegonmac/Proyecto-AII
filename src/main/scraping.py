@@ -124,7 +124,7 @@ def parse_item_details(s2):
     if not item_description:
         item_description = rte_div.text
     else:
-        item_description = item_description.text.strip()
+        item_description = item_description.text.replace("\n", " ").strip()
 
     # details
     item_details_div = product_bottom_div.find("div", class_="tab-content", id="collapse-tab3")
