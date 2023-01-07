@@ -18,11 +18,14 @@ INDEX_INTERIOR_PLASTIC_COLOR = "interior_plastic_colors_index"
 # RECOMMENDATIONS
 
 ATTRIBUTES_WEIGHTS = {
-    "short_name": 0.0,
-    "price": 0.0,
-    "brand": 4.0,
-    "type": 0.0,
-    "magnets": 0.0,
-    "size": 0.0,
-    "weight": 0.0,
+    "short_name": 3.0,
+    "price": 6.0,
+    "brand": 7.0,
+    "type": 7.0,
+    "magnets": 4.0,
+    "size": 0.1,
+    "weight": 0.1,
+    "exterior_finishes": 0.1,
+    "plastic_colors": 0.1,
+    "internal_plastic_colors": 0.1,
     }

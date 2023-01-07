@@ -138,7 +138,7 @@ def recommendations(request):
     user_id = request.user.id
 
     likes = Like.get_user_liked_items_id(request.user)
-    recommended_items = recommend_items(user_id)[0:20]
+    recommended_items = recommend_items(user_id)[0:10]
     params = {
         'items': recommended_items,
         'num_items': len(recommended_items),

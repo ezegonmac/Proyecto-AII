@@ -3,6 +3,7 @@ from whoosh import index
 from whoosh.qparser import MultifieldParser, QueryParser, FuzzyTermPlugin, query
 
 from main.constants import INDEX_FOLDER, INDEX_ITEMS
+from main.models import Like
 
 
 def search_items_index(brand, type, magnets, search, page_number, page_size=20):
@@ -80,5 +81,38 @@ def search_all_by_ids_index(items_id):
     query = QueryParser("id", ix.schema).parse(query_string)
 
     results = searcher.search(query, limit=None)
+
+    return results
+
+
+def search_all_by_ids_sorted_index(items_id):
+    ix = index.open_dir(INDEX_FOLDER, indexname=INDEX_ITEMS)
+    searcher = ix.searcher()
+
+    results = []
+    for item_id in items_id:
+        query = QueryParser("id", ix.schema).parse(str(item_id))
+        result = searcher.search(query, limit=None)[0]
+        results.append(result)
+
+    return results
+
+
+def search_liked_items_by_user_index(user_id):
+    liked_ids = Like.get_items_id_liked_by_user(user_id)
+    results = search_all_by_ids_index(liked_ids)
+
+    return results
+
+
+def search_not_liked_items_by_user_index(user_id):
+
+    items = search_all_index()
+    items_ids = [item['id'] for item in items]
+
+    liked_ids = Like.get_items_id_liked_by_user(user_id)
+    not_liked_ids = [item_id for item_id in items_ids if item_id not in liked_ids]
+
+    results = search_all_by_ids_index(not_liked_ids)
 
     return results
