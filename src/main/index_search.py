@@ -64,3 +64,21 @@ def search_all_index():
     results = searcher.search(query, limit=None)
 
     return results
+
+
+def search_all_by_ids_index(items_id):
+    ix = index.open_dir(INDEX_FOLDER, indexname=INDEX_ITEMS)
+    searcher = ix.searcher()
+
+    # Build the query string
+    query_string = ""
+    for item_id in items_id:
+        query_string += f"id:{item_id} OR "
+    query_string = query_string[:-4]  # remove the last OR
+
+    # Parse the query string
+    query = QueryParser("id", ix.schema).parse(query_string)
+
+    results = searcher.search(query, limit=None)
+
+    return results

@@ -7,9 +7,10 @@ from django.views.decorators.http import require_http_methods
 
 from main.forms import ArtistForm, UserForm
 from main.index import load_data
-from main.index_search import search_all_index, search_by_id_index, search_items_index
+from main.index_search import search_all_index, search_by_id_index, search_items_index, search_all_by_ids_index
 from main.index_details_search import get_all_details_names_by_id
-from main.models import Like, UserArtist, UserTagArtist
+from main.models import Like, User
+from main.models import UserArtist, UserTagArtist
 from main.populate import populate_database
 from main.recommendations import load_similarities, recommend_artists
 from main.utils import like
@@ -91,7 +92,7 @@ def catalog(request):
     # choices for filters
     choices = get_all_details_names_by_id()
 
-    likes = Like.get_user_liked_items(request.user)
+    likes = Like.get_user_liked_items_id(request.user)
     params = {
         'num_items': num_items,
         'items': items,
@@ -124,7 +125,15 @@ def product_detail(request, id):
 @require_http_methods(["GET"])
 @login_required
 def profile(request):
-    return render(request, 'profile.html')
+
+    user_id = request.user.id
+    user = User.objects.get(id=user_id)
+    liked_items_id = Like.get_user_liked_items_id(user)
+    liked_items = search_all_by_ids_index(liked_items_id)
+    params = {'liked_items': liked_items, 'likes': liked_items_id}
+
+    return render(request, 'profile.html', params)
+
 
 
 def populateDB(request):

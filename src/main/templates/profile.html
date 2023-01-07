@@ -1,24 +1,38 @@
 {% extends "base.html" %}
 
+{% block head %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'styles/profile.css' %}">
+	<link rel="stylesheet" href="{% static 'styles/catalog_grid.css' %}">
+{% endblock head %}
+
+{% block title %}
+{{ user.username }}
+{% endblock title %}
+
 {% block content %}
-    <h1>{{ user.username }}'s Profile</h1>
+    <h1 class="title">{{ user.username }}'s Profile</h1>
 
-    <p>Email: {{ user.email }}</p>
-
-    {% if user.first_name or user.last_name %}
+    {% comment %} {% if user.first_name or user.last_name %}
     <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
-    {% endif %}
+    {% endif %} {% endcomment %}
 
-    {% if user.profile.bio %}
-    <h2>Bio</h2>
-    <p>{{ user.profile.bio }}</p>
-    {% endif %}
+    <div class="user-section">
+    
+        <a class="logout-button" href="{% url 'logout' %}">Logout</a>
+    
+    </div>
 
-    <h2>Liked Posts</h2>
-    {% for post in user.posts.all %}
-    <h3>{{ post.title }}</h3>
-    <p>{{ post.body }}</p>
-    {% endfor %}
+    <div class="items-section">
 
-    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        <h3>Liked Items</h3>
+
+        <div class="catalog-grid">
+            {% for item in liked_items %}
+                {% include "components/product_card.html" with item=item %}
+            {% endfor %}
+        </div>
+            
+    </div>
+
 {% endblock %}
