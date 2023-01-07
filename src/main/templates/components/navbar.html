@@ -42,7 +42,6 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item {% if request.path == '/scraping/' %}active{% endif %}" href="{% url 'scraping' %}">Scrape</a></li>
-                    <li><a class="dropdown-item {% if request.path == '/search_all/' %}active{% endif %}" href="{% url 'search_all' %}">List all</a></li>
                     <li><a class="dropdown-item" href="/admin">Admin Panel</a></li>
                 </ul>
             </li>

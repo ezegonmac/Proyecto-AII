@@ -7,6 +7,8 @@ from django.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('/', views.home),
+    path('', views.home),
     path('home/', views.home, name='home'),
     path('scraping/', views.scraping, name='scraping'),
     path('search_all/', views.search_all, name='search_all'),
