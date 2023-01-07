@@ -5,15 +5,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_list_or_404, render
 from django.views.decorators.http import require_http_methods
 
-from main.forms import ArtistForm, UserForm
 from main.index import load_data
 from main.index_search import search_all_index, search_by_id_index, search_items_index, search_all_by_ids_index
 from main.index_details_search import get_all_details_names_by_id
 from main.models import Like, User
-from main.models import UserArtist, UserTagArtist
-from main.populate import populate_database
-from main.recommendations import load_similarities, recommend_artists
 from main.utils import like
+from main.recommendations import recommend_items
 
 
 @require_http_methods(["GET"])
@@ -135,47 +132,56 @@ def profile(request):
     return render(request, 'profile.html', params)
 
 
+@require_http_methods(["GET"])
+@login_required
+def recommendations(request):
+    user_id = request.user.id
+    recommended_items = recommend_items(user_id)
+    params = {'recommended_items': recommended_items}
 
-def populateDB(request):
-    populate_database()
-    return render(request, 'populate.html')
+    return render(request, 'recommendations.html', params)
 
-def loadRS(request):
-    load_similarities()
-    return render(request,'loadRS.html')
 
-def mostListenedArtists(request):
-    form = UserForm(request.GET, request.FILES)
-    if form.is_valid():
-        user = form.cleaned_data['id'] 
-        user_artists = UserArtist.objects.filter(user=user).order_by('-listen_time')[:5]
-        params = {'form': form, 'user_artists': user_artists}
-    else:
-        params = {'form': UserForm()}
-    return render(request,'mostListenedArtists.html', params)
+# def populateDB(request):
+#     populate_database()
+#     return render(request, 'populate.html')
 
-def mostFrequentTags(request):
-    form = ArtistForm(request.GET, request.FILES)
-    if form.is_valid():
-        artist = form.cleaned_data['id']
-        tags = [
-            elem.tag.value
-            for elem in get_list_or_404(UserTagArtist, artist=artist)
-        ]
-        params = {'form': form, 'tags': Counter(tags).most_common(10)}
-    else:
-        params = {'form': ArtistForm()}
-    return render(request,'mostFrequentTags.html', params)
+# def loadRS(request):
+#     load_similarities()
+#     return render(request,'loadRS.html')
 
-def recommendedArtists(request):
-    form = UserForm(request.GET, request.FILES)
-    if form.is_valid():
-        user = form.cleaned_data['id']
-        artists = recommend_artists(int(user))
-        params = {'form': form, 'artists': artists}
-    else:
-        params = {'form': UserForm()}
-    return render(request,'recommendedArtists.html', params)
+# def mostListenedArtists(request):
+#     form = UserForm(request.GET, request.FILES)
+#     if form.is_valid():
+#         user = form.cleaned_data['id'] 
+#         user_artists = UserArtist.objects.filter(user=user).order_by('-listen_time')[:5]
+#         params = {'form': form, 'user_artists': user_artists}
+#     else:
+#         params = {'form': UserForm()}
+#     return render(request,'mostListenedArtists.html', params)
 
-def styles(request): 
-    return render(request,'styles.html')
+# def mostFrequentTags(request):
+#     form = ArtistForm(request.GET, request.FILES)
+#     if form.is_valid():
+#         artist = form.cleaned_data['id']
+#         tags = [
+#             elem.tag.value
+#             for elem in get_list_or_404(UserTagArtist, artist=artist)
+#         ]
+#         params = {'form': form, 'tags': Counter(tags).most_common(10)}
+#     else:
+#         params = {'form': ArtistForm()}
+#     return render(request,'mostFrequentTags.html', params)
+
+# def recommendedArtists(request):
+#     form = UserForm(request.GET, request.FILES)
+#     if form.is_valid():
+#         user = form.cleaned_data['id']
+#         artists = recommend_artists(int(user))
+#         params = {'form': form, 'artists': artists}
+#     else:
+#         params = {'form': UserForm()}
+#     return render(request,'recommendedArtists.html', params)
+
+# def styles(request): 
+#     return render(request,'styles.html')

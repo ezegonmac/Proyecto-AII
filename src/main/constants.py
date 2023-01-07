@@ -14,3 +14,15 @@ INDEX_MAGNETS = "magnets_index"
 INDEX_EXTERIOR_FINISH = "exterior_finishes_index"
 INDEX_PLASTIC_COLOR = "plastic_colors_index"
 INDEX_INTERIOR_PLASTIC_COLOR = "interior_plastic_colors_index"
+
+# RECOMMENDATIONS
+
+ATTRIBUTES_FOR_SIMILARITY = [
+    "name",
+    "price",
+    "brand",
+    "type",
+    "magnets",
+    "size",
+    "weight"
+    ]
