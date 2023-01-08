@@ -6,10 +6,9 @@
 
 <img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/home-1.png" alt="Inicio" align="center" width="900" />
 
-## Table of content
-
+## Tabla de contenidos
 - [Cube Market](#cube-market)
-  - [Table of content](#table-of-content)
+  - [Tabla de contenidos](#tabla-de-contenidos)
   - [Objetivos](#objetivos)
   - [Tecnologías](#tecnologías)
     - [BeautifoulSoup (Scraping)](#beautifoulsoup-scraping)
