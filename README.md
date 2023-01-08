@@ -4,6 +4,8 @@
 
 # Cube Market
 
+<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/home-1.png" alt="Inicio" align="center" width="700" />
+
 # Objetivos
 
 Este trabajo tiene la intención de demostrar los conocimientos adquiridos en la asignatura, aplicándolos a un proyecto real. Cube Market es una aplicación web creada para los coleccionistas y amantes del cubo de Rubik. Extrae los datos le los cubos vendidos en la página “speedcubeshop.com”, concretamente de la sección “Puzzles”, y permite a los usuarios realizar búsquedas personalizadas, permitiendo marcar los productos como gustados. A partir de los gustos extraídos del usuario, se recomiendan nuevos productos no marcados anteriormente. Además, contiene otras funcionalidades que permiten una experiencia mejorada tanto a los usuarios como al administrador de la web.
@@ -44,12 +46,12 @@ Para hacer más interesante la aplicación y aprovechando el auge de algunas apl
 
 Al entrar a la página clicaremos en la parte superior derecha en “Login” para acceder a la página de inicio de sesión.
 
-<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/home.png" alt="Inicio" align="center" height="250" />
+<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/home.png" alt="Inicio" align="center" width="500" />
 
 En esta página podemos tanto iniciar sesión con alguno de los usuarios ya creados, como clicar en "Signup" para registrarnos.
 
-<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/login.png" alt="Inicio de sesión" align="center" height="250" />
-<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/signup.png" alt="Registro" align="center" height="250" />
+<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/login.png" alt="Inicio de sesión" align="center" width="500" />
+<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/signup.png" alt="Registro" align="center" width="500" />
 
 Dependiendo si somos usuarios habituales o administradores, aparecerán distintas opciones en la barra de navegación.
 
@@ -59,8 +61,8 @@ Desde la barra de navegación siendo administradores, podremos desplegar el men�
 
   - Scrape: al acceder a esta sección se realiza el proceso de Scraping, en la consola se provee información, como atributos nuevos encontrados que no hayan sido tenido en cuenta previamente, o la página actual. Finalmente se muestra un resumen de los datos almacenados.
 
-<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/scrape-console.png" alt="Scraping consola" align="center" height="250" />
-<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/scraping.png" alt="Scraping" align="center" height="250" />
+<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/scrape-console.png" alt="Scraping consola" align="center" width="500" />
+<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/scraping.png" alt="Scraping" align="center" width="500" />
 
   - Admin Panel: se nos reenvía al panel de administrador.
 
@@ -70,22 +72,22 @@ Desde la barra de navegación siendo usuarios o administradores, podremos accede
 Se nos mostrarán todos los productos almacenados, y se nos permite filtrar de distintas maneras. Por un campo de texto, que buscará en los campos nombre y descripción con un algoritmo fuzzy, que permite manejar mejor los errores cometidos por el usuario al introducir la búsqueda, además no tiene en cuenta las mayúsculas. Y por filtros dependiendo del tipo, la marca y los imanes. Además, se agrupan en páginas de 10 productos por las que podemos navegar desde la parte inferior del catálogo.
 Cada producto muestra algunos detalles junto a su foto, marcarlo como gustados o acceder a la página de detalle del producto pinchando en él. 
 
-<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/catalog-1.png" alt="Catálogo" align="center" height="250" />
-<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/catalog-2.png" alt="Búsqueda en catálogo" align="center" height="250" />
+<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/catalog-1.png" alt="Catálogo" align="center" width="500" />
+<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/catalog-2.png" alt="Búsqueda en catálogo" align="center" width="500" />
 
 ## Recomendaciones
 
 Desde la barra de navegación siendo usuarios o administradores, podremos acceder a la sección "For You".
 Aquí se mostrarán 10 artículos nuevos recomendados en base a los que te han gustado anteriormente, para poder guardarlos dándoles "like".
 
-<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/foryou.png" alt="Recomendaciones" align="center" height="250" />
+<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/foryou.png" alt="Recomendaciones" align="center" width="500" />
 
 ## Perfil
 
 Desde la parte derecha de la barra de navegación, pulsando en nuestro usuario, podremos acceder a nuestro perfil.
 Allí encontramos un botón para cerrar sesión “Logout” y una sección donde se muestran los artículos marcados como "like".
 
-<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/profile.png" alt="Perfil" align="center" height="250" />
+<img src="https://github.com/ezegonmac/CubeMarket/blob/main/screenshots/profile.png" alt="Perfil" align="center" width="500" />
 
 # Dependencias
 
