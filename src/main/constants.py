@@ -1,6 +1,7 @@
 from pathlib import Path
+import os
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+SRC_DIR = Path(__file__).resolve().parent
 
 # SCRAPING
 
@@ -9,7 +10,7 @@ NUM_PAGES_TO_SCRAPE = 47 # max 48 ALL pages
 
 # INDEX
 
-INDEX_FOLDER = BASE_DIR + "/Index"
+INDEX_FOLDER = os.path.join(os.path.dirname(SRC_DIR), "Index")
 INDEX_ITEMS = "items_index"
 INDEX_BRANDS = "brands_index"
 INDEX_TYPES = "types_index"
