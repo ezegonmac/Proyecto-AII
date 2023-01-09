@@ -12,11 +12,11 @@ Sign Up
 {% block content %}
   <h1 class="title">Sign Up</h1>
 
-    {% if form.errors %}
+    {% for error in errors %}
     <div class="message">
-      <p>There was a problem with your submission. Please try again.</p>
+      <p>{{error}}</p>
     </div>
-    {% endif %}
+    {% endfor %}
 
   <form class="login-form" method="post" action="{% url 'signup' %}">
     {% csrf_token %}

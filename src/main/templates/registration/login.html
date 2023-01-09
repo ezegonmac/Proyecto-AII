@@ -18,7 +18,9 @@ Login
     {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
+  </div>
     
+  <div class="message">
     {% if next %}
       {% if user.is_authenticated %}
     <p>Your account doesn't have access to this page. To proceed,

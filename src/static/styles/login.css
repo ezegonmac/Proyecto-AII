@@ -1,6 +1,6 @@
 .message {
-    margin-bottom: 3rem;
-    padding: 1rem;
+    margin-bottom: 0.6rem;
+    padding: 0.5rem;
     background-color: var(--color-orange);
     border-radius: 0.5rem;
     background-color: transparent;
@@ -10,13 +10,14 @@
 .message p {
     color: var(--color-magenta);
     font-weight: bold;
+    margin-left: 1em;
 }
 
 .login-form {
     width: 40%;
     min-width: 300px;
     margin-inline: auto;
-    margin-bottom: 2rem;
+    margin-block: 2rem;
     padding: 3rem;
     background-color: var(--color-gray-925);
     display: flex;

@@ -151,7 +151,9 @@ def recommendations(request):
     return render(request, 'recommendations.html', params)
 
 
+@require_http_methods(["GET", "POST"])
 def signup(request):
+    errors = ''
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -161,6 +163,11 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return redirect('home')
+        else:
+            errors = form.errors.values()
+            errors = [item for sublist in errors for item in sublist]
     else:
         form = UserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})
+
+    params = {'form': form, 'errors': errors}
+    return render(request, 'registration/signup.html', params)
