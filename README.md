@@ -11,7 +11,7 @@
   - [Tabla de contenidos](#tabla-de-contenidos)
   - [Objetivos](#objetivos)
   - [Tecnologías](#tecnologías)
-    - [BeautifoulSoup (Scraping)](#beautifoulsoup-scraping)
+    - [BeautifulSoup (Scraping)](#beautifulsoup-scraping)
     - [Whoosh y SQLite (Bases de datos)](#whoosh-y-sqlite-bases-de-datos)
     - [Sistema de recomendación](#sistema-de-recomendación)
     - [Django (Aplicación Web)](#django-aplicación-web)
@@ -33,7 +33,7 @@ Este trabajo tiene la intención de demostrar los conocimientos adquiridos en la
 
 ## Tecnologías
 
-### BeautifoulSoup (Scraping)
+### BeautifulSoup (Scraping)
 
 Para obtener los datos de la página, se realiza un web Scraping a la página https://speedcubeshop.com/collections/all-puzzles dentro de la página “speedcubeshop.com”, donde se realiza la venta de cubos de Rubik de manera online.
 Este catálogo contiene más de 500 cubos organizados en casi 50 páginas. De aquí se obtienen los datos principales: nombre, imagen, precio y enlace al producto en dicha página.
@@ -114,7 +114,7 @@ Allí encontramos un botón para cerrar sesión “Logout” y una sección dond
 
 - Python - 3.10.7
 - Whoosh - 2.7.4
-- Beautifoulsoup - 4.11.1
+- BeautifulSoup - 4.11.1
 - Django - 4.1.3
 
 
