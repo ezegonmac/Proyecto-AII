@@ -36,20 +36,26 @@ Este trabajo tiene la intención de demostrar los conocimientos adquiridos en la
 ### BeautifulSoup (Scraping)
 
 Para obtener los datos de la página, se realiza un web Scraping a la página https://speedcubeshop.com/collections/all-puzzles dentro de la página “speedcubeshop.com”, donde se realiza la venta de cubos de Rubik de manera online.
+
 Este catálogo contiene más de 500 cubos organizados en casi 50 páginas. De aquí se obtienen los datos principales: nombre, imagen, precio y enlace al producto en dicha página.
+
 Para obtener los detalles del producto, es necesario acceder a cada url de los productos, y obtenerlos de la página de detalle. De aquí se obtiene una imagen de detalle, la marca y un nombre reducido. Además, dependiendo del producto existen diferentes atributos que se pueden personalizar, así como el color de las pegatinas o el color interno. Más abajo, existen dos secciones de donde se obtienen atributos, la descripción, y otros detalles, como: tipo, imanes, peso, tamaño y fecha de publicación. Estos también pueden variar dependiendo del producto.
 
 
 ### Whoosh y SQLite (Bases de datos)
 
 Se han creado dos bases de datos, una de tipo no-SQL (Whoosh) para almacenar los productos, y una SQL (SQLite por simplicidad, aunque en un entorno real debería ser sustituida por otra tecnología como MySQL o PostgresSQL) para almacenar tanto los usuarios como los likes de los usuarios.
+
 La base de datos no-SQL se ha escogido para facilitar la búsqueda de los productos, sobre todo en los campos de tipo texto. Se han creado un esquema principal para el producto, y varios auxiliares para poder referenciar los atributos enumerados desde tablas individuales. Así se reduce el tamaño de la base de datos, almacenando solamente las ids de los atributos, en lugar de los nombres completos.
+
 La base de datos SQL se ha escogido para relacionar los usuarios con las ids de los productos. Así tenemos una tabla con una entrada por cada like de cada usuario que nos permitirá realizar la recomendación más tarde. 
 
 ### Sistema de recomendación
 
 Se ha implementado un sistema de recomendación basado en contenido. No se tienen en cuenta por tanto los gustos de otros usuarios, solo la similaridad de los productos que le gustan al usuario con los demás productos.
+
 Se ha implementado desde cero, sin usar ninguna librería. En el archivo “recommendations.py” se define la función “recommend_items(user_id)” permite obtener la lista de todos los productos no marcados aún por el usuario, ordenados por puntuación.
+
 Las puntuaciones se calculan en las otras funciones del fichero. En el caso el caso del nombre se usa el coeficiente de Dice para comparar los conjuntos de palabras. Para los atributos que solo pueden tomar un valor se puntúa con 1 en el caso que coincidan y 0 en caso contrario. Para los atributos que tienen varios valores, como las posibles personalizaciones de cada producto, se usa otro método de puntuación. En este caso se obtiene una mayor punción mientras más atributos de los del producto marcado también contenga.
 
 
